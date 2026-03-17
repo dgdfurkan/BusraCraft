@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BüşraCraft Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f471b5",
+                        "background-light": "#f8f6f7",
+                        "background-dark": "#221019",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(244, 113, 181, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 border-r border-primary/10 bg-white/50 dark:bg-background-dark/50 hidden md:flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined">settings_accessibility</span>
+</div>
+<div>
+<h1 class="font-extrabold text-lg leading-none text-slate-900 dark:text-white">BüşraCraft</h1>
+<span class="text-xs text-primary font-medium">Örgü Dünyası</span>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-primary/10 text-primary font-semibold" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Panel
+                </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+                    Tariflerim
+                </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined">category</span>
+                    Kategoriler
+                </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+                    Projelerim
+                </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Ayarlar
+                </a>
+</nav>
+<div class="p-4 border-t border-primary/10">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-primary/20 transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+                    Yeni Tarif
+                </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark">
+<!-- Header -->
+<header class="sticky top-0 z-10 flex items-center justify-between px-8 py-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="flex flex-col">
+<h2 class="text-2xl font-black tracking-tight text-slate-900 dark:text-white">Hoş geldin Büşra! 🧶</h2>
+<p class="text-slate-500 text-sm">Bugün yeni bir şeyler örmeye ne dersin?</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-primary/20 border-2 border-primary overflow-hidden">
+<img alt="Büşra Profil" data-alt="A smiling young woman profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtmEueyaWHL5EafHl-Cj-hA3Izy-gOg_YFVs-jVEc3qIJI1tG2hgqfSeK8WDC7GSxgh8FnXdpDpUU2jGZ5034Knmvy0Ml86TVNOoRsIpJoWHekcumJWVBFUSUTAw9mPh3LrLsMGscF1rMA1gr9qn2f1kwQ7wSOJ0SxdWYt0FsNncM_7vBCtXn_y3DMtDpS9Cbyw2DhHJlzSvm-RfBVWRIxOoBRfWuF9TwSKWfQLlMJQ43PxSU0tOOkvCCooBmJ5xzc_PgvHZqgA7Wc"/>
+</div>
+</div>
+</header>
+<div class="px-8 pb-12 space-y-8">
+<!-- Quote Banner -->
+<section class="relative h-48 rounded-3xl overflow-hidden shadow-xl">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary/40 z-10"></div>
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="Soft pink yarn and knitting needles on a table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2Fz9Wk78HJE0TyoqjLsIuXkleR4A72SXN58IznJbpInzlz807_Z-H5nMGYVxrrzBBbwesn034LMrxLLkJidfvYHSB8Mh94qIv7TJ-1-i9Hy5Vki4Kp8L8ud3kfX5Ba4J49HEQWbm37w4lZLbRE34q1JNiAUY6NTTeRmH5-2oyBYuqw6CTRbdcdz5ZWX_PaQ2kgpwyHigHl4-H9XbjaA-0lH8kZytXXP3ymXzEtOQGlvYwjlKRaCEzOazfaLQenzIIVjUsbPIzTuiT"/>
+<div class="relative z-20 h-full flex flex-col justify-center p-8 text-white">
+<span class="material-symbols-outlined text-4xl mb-2 opacity-50">format_quote</span>
+<h3 class="text-2xl font-bold italic leading-tight">"Örgü örmek, zihni dinlendiren sessiz bir şiirdir."</h3>
+<p class="mt-2 text-white/80 font-medium">— Günün Sözü</p>
+</div>
+</section>
+<!-- Statistics -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined">menu_book</span>
+</div>
+<p class="text-slate-500 font-medium">Toplam Tarif</p>
+<p class="text-3xl font-black text-slate-900 dark:text-white">42</p>
+</div>
+<div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined">category</span>
+</div>
+<p class="text-slate-500 font-medium">Kategoriler</p>
+<p class="text-3xl font-black text-slate-900 dark:text-white">8</p>
+</div>
+<div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<p class="text-slate-500 font-medium">Tamamlanan Projeler</p>
+<p class="text-3xl font-black text-slate-900 dark:text-white">15</p>
+</div>
+</section>
+<!-- Action Bar -->
+<section class="flex flex-wrap gap-4">
+<button class="flex-1 min-w-[200px] h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center gap-3 border-2 border-primary/20 hover:border-primary transition-all group">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">add_circle</span>
+<span class="font-bold">Yeni Tarif Ekle</span>
+</button>
+<button class="flex-1 min-w-[200px] h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center gap-3 border-2 border-primary/20 hover:border-primary transition-all group">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">document_scanner</span>
+<span class="font-bold">OCR Tarama</span>
+</button>
+</section>
+<!-- Recent Recipes -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h4 class="text-xl font-bold text-slate-900 dark:text-white">Son Tariflerim</h4>
+<a class="text-primary font-bold text-sm hover:underline" href="#">Hepsini Gör</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Recipe Card 1 -->
+<div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-primary/5">
+<div class="h-40 relative">
+<img class="w-full h-full object-cover" data-alt="Crocheted small amigurumi animal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKE9tbd3n9l2GJ7Kx5UUshSpaqnX6YBs72Y3-XR3xF2_B8rl-k2gg3z6GZRKZQYpb4W--UIwSinbZCIz6yRRlb1mhGLpi2niVH7wltMfc1a-kNYFvPwovip0w0v5HMNs6ZIF0yH5o8bfJUs6x7ugASu8CYVJuMJWEV-oVOLmu60SpbLzt8K2QJOk5eknqNIcCBK5I4mJfDT7TvuILWStVM4JNzMVGNWYaBxGLqxWBLyJDc8TTWH4mFD95SjvnUzzKJ9OYJ5ieTP-Mg"/>
+<span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Amigurumi</span>
+</div>
+<div class="p-4">
+<h5 class="font-bold text-slate-900 dark:text-white mb-1">Sevimli Tavşan Broş</h5>
+<p class="text-xs text-slate-500 mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span> 2 saat
+                                </p>
+<button class="w-full py-2 bg-primary/5 hover:bg-primary/10 text-primary rounded-lg text-sm font-bold transition-colors">Detayları Gör</button>
+</div>
+</div>
+<!-- Recipe Card 2 -->
+<div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-primary/5">
+<div class="h-40 relative">
+<img class="w-full h-full object-cover" data-alt="Pink knitted winter scarf" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCh6XDICzVVf0zgjPMcguV4eIa9tORws0qS9BL3oNCIL7JaU4H9Ok0xsPEHW6HzBYClbPR6604hMYO-8FyLAmVPZJYsfCURQOeXiKmyvpqvkRrlhdG6q8ZcNgTD2923EtWIv_WIBxkn9OluBMX3ESwbL6vydCKPqL1QQGm9La7v83cw7NcIEPJ9nyMqsQtZXRoWZaz7g-hn0FE2PB4E0Z8LHT63kl8GHAxLUrAarP6e52gZlGbGxWh_Z6F-u5svanXiUf2rMKyqMOJ6"/>
+<span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Aksesuar</span>
+</div>
+<div class="p-4">
+<h5 class="font-bold text-slate-900 dark:text-white mb-1">Yumuşak Kış Atkısı</h5>
+<p class="text-xs text-slate-500 mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span> 5 saat
+                                </p>
+<button class="w-full py-2 bg-primary/5 hover:bg-primary/10 text-primary rounded-lg text-sm font-bold transition-colors">Detayları Gör</button>
+</div>
+</div>
+<!-- Recipe Card 3 -->
+<div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-primary/5">
+<div class="h-40 relative">
+<img class="w-full h-full object-cover" data-alt="Handmade knitted baby blanket" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfXxod0v4tJjdu-4mpYbemynVlVr5VOfnpOqAPaZAqSZROINvPSaHAiJlQW9coFBj3EaYP9AfaHM3Jiw_BSBgZk_8NRdy7LqGyoT9bLmSuHQAOtKiM_qJ52ODDQvhp2qx02_O3JiIgIAoz4eF1OHgL5fsRagqBmR6ACciqUmBalr54DWSKuT_gW2rACfX4AIGOaSqA5NtXJvzC9XZZyeB2B3qdguED0MKwrivbH75_BVA3Xol0DAnsJrqchi2rHA-oM_cDAFO6dxLf"/>
+<span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Bebek</span>
+</div>
+<div class="p-4">
+<h5 class="font-bold text-slate-900 dark:text-white mb-1">Pirinç Örgü Bebek Battaniyesi</h5>
+<p class="text-xs text-slate-500 mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span> 12 saat
+                                </p>
+<button class="w-full py-2 bg-primary/5 hover:bg-primary/10 text-primary rounded-lg text-sm font-bold transition-colors">Detayları Gör</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

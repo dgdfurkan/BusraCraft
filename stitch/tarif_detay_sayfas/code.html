@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f471b5",
+                        "background-light": "#f8f6f7",
+                        "background-dark": "#221019",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="max-w-[1200px] mx-auto">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between px-6 py-4 border-b border-primary/10">
+<div class="flex items-center gap-3">
+<div class="bg-primary text-white p-2 rounded-lg">
+<span class="material-symbols-outlined text-2xl">eco</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100">BüşraCraft</h1>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center p-2 rounded-xl bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="flex items-center justify-center p-2 rounded-xl bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</header>
+<main class="px-6 py-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Media & Info -->
+<div class="lg:col-span-7 flex flex-col gap-6">
+<!-- Hero Image -->
+<div class="relative group">
+<div class="w-full aspect-[16/10] rounded-xl overflow-hidden bg-primary/5 shadow-sm border border-primary/10">
+<img class="w-full h-full object-cover" data-alt="Handmade pink amigurumi rabbit on a white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcL1WPIX__7IkOyGu_JaA7R-YJU0yTgyD9NtQDmb1QZAihReJ0uUXBV7mstkCWs8JUuB28P6pjn917k1ukNyiquRc7k7Zrh_H9qwlRfUmP01FiXo-0qURnMwgiLvE-Qd8pZlTmzPyBSrNnejLs1PUC08Sa7umw4_Rg-7U94JWS-02ORhNLeE9m2MlCti8jeFjIoWTQP5FeTv9Q8qYqtGrjCsxGEukXrACE1dhmTsE32ZN0_4ua_sXL96hDX1k_FF48cgTydfBX9KxX"/>
+</div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+<div class="bg-white/90 backdrop-blur-md dark:bg-background-dark/90 p-4 rounded-lg border border-primary/10 shadow-lg">
+<h2 class="text-3xl font-bold text-slate-900 dark:text-slate-100">Amigurumi Tavşan</h2>
+<div class="flex gap-3 mt-2">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
+<span class="material-symbols-outlined text-sm">local_offer</span> Amigurumi
+                                    </span>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold">
+<span class="material-symbols-outlined text-sm">signal_cellular_alt</span> Orta
+                                    </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Photo Gallery Thumbnails -->
+<div class="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+<div class="shrink-0 w-24 h-24 rounded-lg overflow-hidden border-2 border-primary">
+<img class="w-full h-full object-cover" data-alt="Close up of amigurumi rabbit head" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4dQllXajalu1H63e9pCS9fHdAwF7UCsc396nLlsIguZbFfwsJ22YCnMlbnoCUffie8SCpqgtnFtEerKdXK68CpESqNOKYf8mliakZB0LjTJxexd9II7OhDRtGs1947_5lVvlf21vorNKpgjVp7kPoR4U_4YsBy6lk-KN_r7m6sXFD-Yj-f41GmefhpDfbTKYqtSWXVAtz4jyNvCpFgu_2PAAsJ5fGXvzZ-Cg5Y02Tev5HwjnvOAfqhLcpOpg3yvqD2f_vI_AbQ7Yo"/>
+</div>
+<div class="shrink-0 w-24 h-24 rounded-lg overflow-hidden border border-primary/10 opacity-70 hover:opacity-100 cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="Side view of crochet rabbit toy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS4jUOuO5RCqfAUJmCJ6CUK4dRQoc9i-PlZKtbcLu-qAyRocQxMaglRlY7y6Nt2i-DJB7iQjrM3FySbAeOUUhHucEsNpovDVflSvc2PP6J8u4eazVqhHCE2VHamQ6OxZuLgFo_11-3dZrLDDvOPKcH2kMGa5RnANFn8twgVwzixMdKjY7uOy04eSmhiNElycdm29IEbz0yTltfVdBXNaLG6Wp4D3ThEFYtNc_AEGLbRiowXn9lLqNwWypSZZf8UdUt75ovtXZF3Lh3"/>
+</div>
+<div class="shrink-0 w-24 h-24 rounded-lg overflow-hidden border border-primary/10 opacity-70 hover:opacity-100 cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="Crochet stitches detail of the rabbit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvNR0R6OHvZHAmiV9atUDB0kN9Kls9Kk_IIf1QcDD2YCoXLBSCuXxxGZ3lUvAluLLEV4UEHTrHsBp8yeEb6zyMSALxfTj16dXoXjFMPhFgR7XnBMwKMVtAfZ-VePF7xsGxOgAJZ4urjE2kFCn2c1BpXlh9jiOGdH1lKnM1G1g3lv0kzr9Cd27ERETkWiyGOk4dsJ5wUwRLf-HEIp-hrnN_NK8VxvM1P54TNXN62z0sZ6L77XQltGqLvH1sMfucWw3OvEF85UVy_-4a"/>
+</div>
+</div>
+<!-- Info Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="p-4 rounded-xl bg-white dark:bg-background-dark/50 border border-primary/10 shadow-sm flex flex-col gap-2">
+<span class="material-symbols-outlined text-primary">inventory_2</span>
+<div>
+<p class="text-xs text-slate-500 uppercase font-bold tracking-wider">İp Türü</p>
+<p class="font-semibold">Alize Cotton Gold</p>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-white dark:bg-background-dark/50 border border-primary/10 shadow-sm flex flex-col gap-2">
+<span class="material-symbols-outlined text-primary">hardware</span>
+<div>
+<p class="text-xs text-slate-500 uppercase font-bold tracking-wider">Tığ Numarası</p>
+<p class="font-semibold">2.5mm</p>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-white dark:bg-background-dark/50 border border-primary/10 shadow-sm flex flex-col gap-2">
+<span class="material-symbols-outlined text-primary">schedule</span>
+<div>
+<p class="text-xs text-slate-500 uppercase font-bold tracking-wider">Tahmini Süre</p>
+<p class="font-semibold">4 Saat</p>
+</div>
+</div>
+</div>
+<!-- Description/Notes -->
+<div class="p-6 rounded-xl bg-primary/5 border border-primary/10">
+<h3 class="text-lg font-bold mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined">description</span> Tarif Notları
+                        </h3>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed italic">
+                            "Bu sevimli tavşanı örerken ilmeklerin sıkı olmasına dikkat edin, böylece içindeki elyaf dışarıdan görünmez. Gözler için 6mm güvenli göz kullanabilirsiniz."
+                        </p>
+</div>
+</div>
+<!-- Right Column: Steps -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<div class="bg-white dark:bg-background-dark/50 rounded-xl border border-primary/10 shadow-sm overflow-hidden">
+<div class="bg-primary p-4 text-white">
+<h3 class="text-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined">format_list_numbered</span> Yapılış Aşamaları
+                            </h3>
+</div>
+<div class="p-6 flex flex-col gap-6">
+<!-- Step 1 -->
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">1</div>
+<div class="w-0.5 h-full bg-primary/20 my-1"></div>
+</div>
+<div class="flex-1 pb-4 border-b border-primary/5">
+<div class="flex items-start justify-between">
+<h4 class="font-bold text-slate-900 dark:text-slate-100">Kafa Yapımı</h4>
+<input class="rounded text-primary focus:ring-primary h-5 w-5 cursor-pointer" type="checkbox"/>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Sihirli halka içine 6 sık iğne (SC) yaparak başlayın. Her sırada artırarak 42 ilmeğe kadar çıkın.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">2</div>
+<div class="w-0.5 h-full bg-primary/20 my-1"></div>
+</div>
+<div class="flex-1 pb-4 border-b border-primary/5">
+<div class="flex items-start justify-between">
+<h4 class="font-bold text-slate-900 dark:text-slate-100">Gövde ve Birleştirme</h4>
+<input class="rounded text-primary focus:ring-primary h-5 w-5 cursor-pointer" type="checkbox"/>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Bacakları örüp gövdeyle birleştirin. Karın bölgesinde elyafı sıkıca doldurmayı unutmayın.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">3</div>
+<div class="w-0.5 h-full bg-primary/20 my-1"></div>
+</div>
+<div class="flex-1 pb-4 border-b border-primary/5">
+<div class="flex items-start justify-between">
+<h4 class="font-bold text-slate-900 dark:text-slate-100">Kulaklar</h4>
+<input class="rounded text-primary focus:ring-primary h-5 w-5 cursor-pointer" type="checkbox"/>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 mt-1">İki adet uzun kulak örün. Kulakları kafanın 3. ve 4. sıraları arasına dikin.</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">4</div>
+</div>
+<div class="flex-1">
+<div class="flex items-start justify-between">
+<h4 class="font-bold text-slate-400">Yüz İşleme</h4>
+<input class="rounded text-primary focus:ring-primary h-5 w-5 cursor-pointer" type="checkbox"/>
+</div>
+<p class="text-sm text-slate-400 mt-1">Pembe ip ile burun ve siyah ip ile küçük bir ağız işleyerek ifade verin.</p>
+</div>
+</div>
+<!-- Final Button -->
+<button class="w-full py-4 mt-4 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl transition-all shadow-md shadow-primary/20 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">celebration</span>
+                                Tarifi Tamamla
+                            </button>
+</div>
+</div>
+<!-- Material List -->
+<div class="p-6 rounded-xl bg-white dark:bg-background-dark/50 border border-primary/10 shadow-sm">
+<h3 class="text-lg font-bold mb-4 flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">shopping_basket</span> Malzemeler
+                        </h3>
+<ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 1 Yumak Pembe İp</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 1 Yumak Beyaz İp</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Boncuk Elyaf (100gr)</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 6mm Güvenli Göz</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Yün İğnesi</li>
+</ul>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Footer -->
+<footer class="mt-12 px-6 py-8 border-t border-primary/10 text-center text-slate-500 text-sm">
+<p>© 2024 BüşraCraft • Sevgiyle örüldü ✨</p>
+</footer>
+</div>
+</body></html>

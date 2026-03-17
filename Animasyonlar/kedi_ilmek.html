@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BüşraCraft - Kedi Animasyonu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* BüşraCraft Pembe Bahçe Tema Renkleri */
+        :root {
+            --color-primary: #F472B6;
+            --color-accent: #EC4899;
+            --color-bg: #FFF1F2;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        /* --- Animasyonlar --- */
+
+        /* İp yumağının yuvarlanması */
+        .yarn-roll {
+            transform-origin: 150px 250px;
+            animation: rollYarn 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes rollYarn {
+            0% { transform: translateX(0) rotate(0deg); }
+            100% { transform: translateX(-35px) rotate(-45deg); }
+        }
+
+        /* Kedinin patisiyle vurması */
+        .paw-swipe {
+            transform-origin: 270px 230px;
+            animation: swipePaw 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes swipePaw {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-35deg) translateY(10px); }
+        }
+
+        /* Kedinin kuyruğunun sallanması */
+        .tail-wag {
+            transform-origin: 410px 230px;
+            animation: wagTail 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes wagTail {
+            0% { transform: rotate(-10deg); }
+            100% { transform: rotate(20deg); }
+        }
+
+        /* Kedinin başının hafifçe oynaması (takip etme) */
+        .head-bob {
+            transform-origin: 290px 180px;
+            animation: bobHead 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes bobHead {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-3deg) translateX(-2px); }
+        }
+
+        /* Arka plan kalplerinin süzülmesi */
+        .floating-heart {
+            animation: floatHeart 3s ease-in infinite;
+            opacity: 0;
+        }
+
+        .floating-heart.delay-1 { animation-delay: 1s; }
+        .floating-heart.delay-2 { animation-delay: 2s; }
+
+        @keyframes floatHeart {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-40px) scale(1); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="relative w-full max-w-2xl p-8 bg-white rounded-3xl shadow-xl shadow-pink-100 flex flex-col items-center">
+        
+        <!-- SVG Animasyon Başlangıcı -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" class="w-full h-auto drop-shadow-sm">
+            
+            <!-- Arka Plan Dekorasyonu (Zemin çizgisi) -->
+            <line x1="50" y1="285" x2="450" y2="285" stroke="#FCE7F3" stroke-width="6" stroke-linecap="round" />
+            <line x1="100" y1="295" x2="400" y2="295" stroke="#FCE7F3" stroke-width="4" stroke-linecap="round" opacity="0.5" />
+
+            <!-- Uçan Kalpler -->
+            <g class="floating-heart" transform="translate(180, 120)">
+                <path d="M10,3 C5,-2 0,2 0,8 C0,15 10,22 10,22 C10,22 20,15 20,8 C20,2 15,-2 10,3 Z" fill="#F472B6" />
+            </g>
+            <g class="floating-heart delay-1" transform="translate(320, 80) scale(0.8)">
+                <path d="M10,3 C5,-2 0,2 0,8 C0,15 10,22 10,22 C10,22 20,15 20,8 C20,2 15,-2 10,3 Z" fill="#F472B6" />
+            </g>
+            <g class="floating-heart delay-2" transform="translate(230, 90) scale(0.6)">
+                <path d="M10,3 C5,-2 0,2 0,8 C0,15 10,22 10,22 C10,22 20,15 20,8 C20,2 15,-2 10,3 Z" fill="#F472B6" />
+            </g>
+
+            <!-- KEDİ (Gövde ve Arka Bacaklar) -->
+            <g id="cat-body">
+                <!-- Kuyruk (Hareketli) -->
+                <g class="tail-wag">
+                    <path d="M 410 230 Q 460 180 440 120 Q 430 90 410 100 Q 420 160 395 210" fill="#E5E7EB" stroke="#D1D5DB" stroke-width="2" />
+                    <!-- Kuyruk ucu lekesi -->
+                    <path d="M 440 120 Q 430 90 410 100 Q 413 120 425 130 Z" fill="#9CA3AF" />
+                </g>
+
+                <!-- Arka Bacak -->
+                <ellipse cx="380" cy="255" rx="25" ry="18" fill="#D1D5DB" />
+                <ellipse cx="395" cy="275" rx="15" ry="10" fill="#E5E7EB" />
+                
+                <!-- Ana Gövde -->
+                <ellipse cx="340" cy="240" rx="75" ry="45" fill="#E5E7EB" />
+                <!-- Gövde Lekesi -->
+                <path d="M 330 195 C 370 195 400 210 410 230 C 380 235 340 215 330 195 Z" fill="#9CA3AF" opacity="0.5" />
+                
+                <!-- Ön Sağ Bacak (Sabit olan, arkada kalan) -->
+                <path d="M 280 230 Q 270 280 285 280 Q 300 280 310 240" fill="#D1D5DB" />
+            </g>
+
+            <!-- KEDİ (Baş Kısmı - Hareketli) -->
+            <g class="head-bob" id="cat-head">
+                <!-- Sol Kulak -->
+                <polygon points="255,150 240,90 290,125" fill="#E5E7EB" />
+                <polygon points="258,140 248,105 280,128" fill="#FCE7F3" /> <!-- Kulak içi pembe -->
+                
+                <!-- Sağ Kulak -->
+                <polygon points="305,120 340,75 335,135" fill="#E5E7EB" />
+                <polygon points="312,125 332,90 328,130" fill="#FCE7F3" /> <!-- Kulak içi pembe -->
+
+                <!-- Kafa Yuvarlağı -->
+                <circle cx="290" cy="165" r="45" fill="#E5E7EB" />
+                
+                <!-- Yüz Lekesi (Tuxedo tarzı) -->
+                <path d="M 260 140 Q 290 150 320 135 Q 330 160 290 190 Q 250 160 260 140 Z" fill="#F3F4F6" />
+
+                <!-- Gözler (Kapalı, mutlu ifade) -->
+                <path d="M 265 160 Q 272 155 278 160" fill="none" stroke="#374151" stroke-width="3" stroke-linecap="round" />
+                <path d="M 298 160 Q 305 155 312 160" fill="none" stroke="#374151" stroke-width="3" stroke-linecap="round" />
+
+                <!-- Burun ve Ağız -->
+                <polygon points="285,172 292,172 288.5,176" fill="#F472B6" />
+                <path d="M 280 182 Q 284 186 288.5 176 Q 293 186 297 182" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round" />
+
+                <!-- Bıyıklar -->
+                <!-- Sol -->
+                <line x1="255" y1="165" x2="235" y2="160" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" />
+                <line x1="255" y1="172" x2="232" y2="172" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" />
+                <!-- Sağ -->
+                <line x1="322" y1="165" x2="342" y2="160" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" />
+                <line x1="322" y1="172" x2="345" y2="172" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" />
+            </g>
+
+            <!-- KEDİ (Ön Sol Pati - Hareketli) -->
+            <g class="paw-swipe" id="cat-paw-front">
+                <!-- Kol -->
+                <path d="M 280 230 Q 240 235 230 265 Q 260 270 290 240" fill="#E5E7EB" />
+                <!-- Pati Ucu -->
+                <ellipse cx="228" cy="265" rx="12" ry="9" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1" transform="rotate(-15, 228, 265)" />
+                <!-- Pati İzi / Tırnak Çizgileri -->
+                <line x1="222" y1="262" x2="225" y2="267" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" />
+                <line x1="226" y1="260" x2="229" y2="268" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" />
+            </g>
+
+            <!-- BAĞLANTI İPİ (Yumak ile pati arasında gerilen/gevşeyen ip) -->
+            <path fill="none" stroke="#F472B6" stroke-width="3" stroke-linecap="round">
+                <!-- SVG SMIL Animasyonu ile path (d) değişimi yapıyoruz -->
+                <animate 
+                    attributeName="d" 
+                    values="M 150 250 Q 180 285 228 265; 
+                            M 115 250 Q 160 270 215 275; 
+                            M 150 250 Q 180 285 228 265" 
+                    dur="3s" 
+                    repeatCount="indefinite" />
+            </path>
+
+            <!-- İP YUMAĞI (Hareketli) -->
+            <g class="yarn-roll" id="yarn-ball">
+                <!-- Yumak Gövdesi -->
+                <circle cx="150" cy="250" r="30" fill="#F472B6" />
+                <!-- İç Detaylar (İp Dokusu) -->
+                <path d="M 130 230 Q 150 220 170 240" fill="none" stroke="#EC4899" stroke-width="4" stroke-linecap="round" />
+                <path d="M 125 245 Q 150 235 175 255" fill="none" stroke="#EC4899" stroke-width="4" stroke-linecap="round" />
+                <path d="M 130 265 Q 150 250 165 270" fill="none" stroke="#EC4899" stroke-width="4" stroke-linecap="round" />
+                <path d="M 140 225 Q 135 250 155 275" fill="none" stroke="#DB2777" stroke-width="3" stroke-linecap="round" />
+                <path d="M 160 225 Q 155 250 170 265" fill="none" stroke="#DB2777" stroke-width="3" stroke-linecap="round" />
+            </g>
+
+        </svg>
+
+        <!-- Alt Bilgi / Mesaj -->
+        <div class="text-center mt-2">
+            <h3 class="text-2xl font-bold text-pink-500 flex items-center justify-center gap-2">
+                🧶 BüşraCraft
+            </h3>
+            <p class="text-gray-500 mt-1 font-medium">Tarifler yükleniyor, ilmekler atılıyor...</p>
+        </div>
+    </div>
+
+</body>
+</html>

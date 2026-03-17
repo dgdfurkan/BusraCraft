@@ -1,0 +1,27 @@
+.stitch-border-top {
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--color-primary) 0px,
+    var(--color-primary) 8px,
+    transparent 8px,
+    transparent 12px,
+    var(--color-primary) 12px,
+    var(--color-primary) 20px,
+    transparent 20px,
+    transparent 24px
+  );
+  background-size: 24px 3px;
+  background-repeat: repeat-x;
+  background-position: top;
+  padding-top: 6px;
+}
+
+.knit-pattern-bg {
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    var(--color-primary) 1px,
+    transparent 1px
+  );
+  background-size: 20px 20px;
+  opacity: 0.03;
+}

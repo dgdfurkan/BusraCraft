@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f471b5",
+                        "background-light": "#f8f6f7",
+                        "background-dark": "#221019",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>BüşraCraft - Tariflerim</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex h-16 items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2 group cursor-pointer">
+<div class="bg-primary/20 p-2 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">styler</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-primary">BüşraCraft</h1>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-semibold text-primary border-b-2 border-primary pb-1" href="#">Tariflerim</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Atölye</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Dükkan</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center bg-primary/5 dark:bg-primary/10 rounded-xl px-3 py-1.5 border border-primary/10">
+<span class="material-symbols-outlined text-primary text-xl">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-32 lg:w-48 placeholder:text-primary/50" placeholder="Hızlı ara..." type="text"/>
+</div>
+<div class="h-10 w-10 rounded-full bg-primary/20 border-2 border-primary/30 flex items-center justify-center text-primary overflow-hidden">
+<img alt="Profil" class="w-full h-full object-cover" data-alt="Female user profile avatar illustration" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9O8f5k532gKGX08XWp_CK_uwrmhp3xpODfHM84-zdGhJEc63CzhjsQfw2Web4ZA6k6eqg9IAKBkbq-4DN7PuXkuPSAHv2ua7aCU-7rH_nQTM6YpH_-BIvXhMwciUpgi2kl83IBnuKc9kraOpuID7yVbWrIU7ulW_lra4k9i8m4ZK4a3V-LsnWubRnMCphHKrdv3ZqdPQ5x_XynVlmBXKxnOl-9PGA1OM018UQbPd4-u5ceDPgpcb6xQXWvIOKWBuyKryPqVb8yxcH"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+<div class="flex flex-col gap-8">
+<section class="flex flex-col gap-6">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h2 class="text-3xl font-bold text-slate-900 dark:text-slate-50">Örgü Kütüphanem</h2>
+<p class="text-slate-500 dark:text-slate-400 mt-1">İlham dolu tariflerin tek bir yerde.</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<div class="flex bg-primary/10 p-1 rounded-xl border border-primary/20">
+<button class="px-4 py-2 text-xs font-bold rounded-lg bg-primary text-white shadow-sm">Tümü</button>
+<button class="px-4 py-2 text-xs font-semibold rounded-lg text-primary hover:bg-primary/5">Favoriler</button>
+<button class="px-4 py-2 text-xs font-semibold rounded-lg text-primary hover:bg-primary/5">Tamamlananlar</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex flex-wrap gap-3">
+<div class="flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-white text-sm font-medium cursor-pointer shadow-md shadow-primary/20">
+<span class="material-symbols-outlined text-lg">grid_view</span>
+<span>Tümü</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-primary/20 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-primary/5 transition-colors cursor-pointer">
+<span>🧸 Amigurumi</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-primary/20 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-primary/5 transition-colors cursor-pointer">
+<span>🧥 Kazak</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-primary/20 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-primary/5 transition-colors cursor-pointer">
+<span>🧣 Şal</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-primary/20 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-primary/5 transition-colors cursor-pointer">
+<span>👶 Bebek</span>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white/50 dark:bg-slate-800/50 p-3 rounded-2xl border border-primary/10 backdrop-blur-sm">
+<span class="text-sm font-semibold text-slate-500 dark:text-slate-400 ml-2">Zorluk:</span>
+<div class="flex gap-2">
+<button class="px-4 py-1.5 rounded-lg border border-primary/30 text-xs font-bold text-primary bg-primary/5 hover:bg-primary hover:text-white transition-all">Kolay</button>
+<button class="px-4 py-1.5 rounded-lg border border-primary/30 text-xs font-bold text-primary bg-primary/5 hover:bg-primary hover:text-white transition-all">Orta</button>
+<button class="px-4 py-1.5 rounded-lg border border-primary/30 text-xs font-bold text-primary bg-primary/5 hover:bg-primary hover:text-white transition-all">Zor</button>
+</div>
+</div>
+</div>
+</section>
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-24">
+<!-- Card 1 -->
+<div class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-primary/10 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Blue amigurumi bear handmade toy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh1KtAaN6v8ASU14YZr-oR08Gv22DK4y61sUlbEmkVsKfMIj9GjMLgtRtlwPWlUcjzJs3YsH_wBUjqan-qaZyxVS4rejo61T1LLpiS_OMJB2odLgSPYTGYzedw5WQZPxgZWAZz5DX01vIJmyPCgDJRb8Eugxv6DejyEKNX6SaYMdYvMzjFYBGV5jcYNZJHFw0cKyb_UbB9lR2GcDwMSW3Mzr-8TDCcrqSoSBL-dPCJhywnXjyootWjjj2WkOoI0t2-nheZEw_2uucR"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-green-500 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-lg">
+                                Kolay
+                            </div>
+<button class="absolute top-3 right-3 p-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<h3 class="font-bold text-lg text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors">Mavi Ayıcık Amigurumi</h3>
+<div class="mt-2 flex items-center gap-2 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-base">architecture</span>
+<p class="text-xs font-medium">İp: Alize Cotton Gold</p>
+</div>
+<div class="mt-4 pt-4 border-t border-primary/5 flex items-center justify-between">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-[10px] font-bold">2-3 GÜN</span>
+</div>
+<button class="text-xs font-bold text-primary flex items-center gap-1 hover:translate-x-1 transition-transform">
+                                    İNCELE <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-primary/10 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Pink wool knitted spring shawl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACJWhCf5Eq6krgc7bM8OixyjKl3GzynA8DfLUBdXA4PCzwZC-XyDWYAc-IghY-RL6tuaLb14IdrpC8zqOecxSEzA-Mgol1GxnlmvpDYfcuavZnucMyH3-GEKzxs6HLiVpjHM9Ye3RGCS-oWPpsCoOaTHs66tp8sbtaAiLq7q2qjBA5tSTyoYxVeDWgmG2b_eKD6vE4fzrKyz9YwPuHoAkW2u8X7MzJxY-rNNoeN4bVu36W2ERjErBuJJDc2bL05QMpcQYLHiaZcwHl"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-amber-500 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-lg">
+                                Orta
+                            </div>
+<button class="absolute top-3 right-3 p-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-full text-slate-400 hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<h3 class="font-bold text-lg text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors">Pembe Bahar Şalı</h3>
+<div class="mt-2 flex items-center gap-2 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-base">architecture</span>
+<p class="text-xs font-medium">İp: Nako Nakolen</p>
+</div>
+<div class="mt-4 pt-4 border-t border-primary/5 flex items-center justify-between">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-[10px] font-bold">1 HAFTA</span>
+</div>
+<button class="text-xs font-bold text-primary flex items-center gap-1 hover:translate-x-1 transition-transform">
+                                    İNCELE <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-primary/10 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Handmade baby wool cardigan white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHINc80WLRrQfFEyOSnPdX1vQ0IHvA75bFeIw6JaA7g_CFGTpK3h9jDi7BOuLYwsTdJsDEAsMV3hqT40tB-1706cNTTkeqREXGlsLi9EPE2LixilJfWLTWNJPBYvr9MUBYDzpRY1j_Q97YoVb7ou1NzrLKZNBKncjrOXyJ0b_eL6wvoqOGiG7gWT0WdfFybDrn8VoqlyFE9xNec0roRoyAKC3f3GkIrMxms3kFHyq2G3cB3dgEe1OeXmqZh6jkI_lQWDhyzS1I7rgd"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-green-500 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-lg">
+                                Kolay
+                            </div>
+<button class="absolute top-3 right-3 p-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<h3 class="font-bold text-lg text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors">Bebek Örgü Hırka</h3>
+<div class="mt-2 flex items-center gap-2 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-base">architecture</span>
+<p class="text-xs font-medium">İp: Kartopu Baby One</p>
+</div>
+<div class="mt-4 pt-4 border-t border-primary/5 flex items-center justify-between">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-[10px] font-bold">4 GÜN</span>
+</div>
+<button class="text-xs font-bold text-primary flex items-center gap-1 hover:translate-x-1 transition-transform">
+                                    İNCELE <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-primary/10 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Grey chunky knit wool sweater" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZrjIH8MqfC2W3hv3Z_nWh2YdobXqwbUASLooKTPRV-D-gHi5WNox43XZELvqVqHPMAyUUomSoeWC4ZfefuU7bJltzxe1ZeTjCKb8lXOXxU9u7xw2hzjBXnResHcDn7zKvnahkZwLE8wzAXzMfpCM3vAHobXseumtudZZ6YLe5Cg0cAGV3QvqWJUed8kGNqxXl5YZfou8Emr9WoYIVzxy-CQDYRhv7-SLY35N4mMSrqCakQowOUZeexJUtUkGz417K9PCxQqDYc8SB"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-red-500 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-lg">
+                                Zor
+                            </div>
+<button class="absolute top-3 right-3 p-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-full text-slate-400 hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<h3 class="font-bold text-lg text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors">Selanik Örgü Kazak</h3>
+<div class="mt-2 flex items-center gap-2 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-base">architecture</span>
+<p class="text-xs font-medium">İp: Himalaya Every Day</p>
+</div>
+<div class="mt-4 pt-4 border-t border-primary/5 flex items-center justify-between">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-[10px] font-bold">2 HAFTA</span>
+</div>
+<button class="text-xs font-bold text-primary flex items-center gap-1 hover:translate-x-1 transition-transform">
+                                    İNCELE <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<button class="fixed bottom-8 right-8 flex items-center justify-center h-16 w-16 bg-primary text-white rounded-full shadow-2xl shadow-primary/40 hover:scale-110 transition-transform z-[60] group">
+<span class="material-symbols-outlined text-3xl transition-transform group-hover:rotate-12">content_cut</span>
+<div class="absolute right-full mr-4 bg-slate-900 text-white px-3 py-1 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                Yeni Tarif Ekle
+            </div>
+</button>
+</div>
+</body></html>
