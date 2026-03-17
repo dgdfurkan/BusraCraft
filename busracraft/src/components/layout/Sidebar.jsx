@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import Icon from '../ui/Icon'
+import Logo from '../ui/Logo'
 
 const navItems = [
   { to: '/', icon: 'dashboard', label: 'Panel' },
@@ -23,9 +24,7 @@ export default function Sidebar() {
     <aside className="hidden lg:flex flex-col w-64 min-h-screen fixed left-0 top-0 z-30 border-r border-primary/10 bg-white/50 backdrop-blur-sm">
       <div className="px-6 py-7">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
-            <Icon name="self_improvement" size="text-xl" className="text-white" fill />
-          </div>
+          <Logo size={42} />
           <div>
             <h1 className="text-lg font-extrabold text-slate-800 tracking-tight leading-none">
               BüşraCraft

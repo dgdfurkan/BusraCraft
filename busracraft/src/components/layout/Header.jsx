@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import Icon from '../ui/Icon'
+import Logo from '../ui/Logo'
 
 const pageTitles = {
   '/tarifler': 'Tariflerim',
@@ -39,13 +40,16 @@ export default function Header() {
           )}
 
           {isHome ? (
-            <div>
-              <h2 className="text-2xl font-black tracking-tight text-slate-800 leading-tight">
-                Hoş geldin Büşra! 🧶
-              </h2>
-              <p className="text-sm text-slate-500 hidden sm:block">
-                Bugün ne örmek istersin?
-              </p>
+            <div className="flex items-center gap-3">
+              <Logo size={36} className="lg:hidden shrink-0" />
+              <div>
+                <h2 className="text-xl font-black tracking-tight text-slate-800 leading-tight">
+                  Hoş geldin Büşra!
+                </h2>
+                <p className="text-sm text-slate-500 hidden sm:block">
+                  Bugün ne örmek istersin?
+                </p>
+              </div>
             </div>
           ) : (
             <h1 className="text-xl font-bold text-slate-800 tracking-tight truncate">
