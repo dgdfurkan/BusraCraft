@@ -12,10 +12,9 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 }
 
-const isDummyConfig = !firebaseConfig.apiKey
-  || firebaseConfig.apiKey === 'your_api_key_here'
-  || !firebaseConfig.projectId
-  || firebaseConfig.projectId === 'your_project_id'
+const DUMMY_VALUES = ['', 'undefined', 'null', 'your_api_key_here', 'your_project_id', 'xxx', 'placeholder']
+const isDummy = (v) => !v || DUMMY_VALUES.includes(String(v).toLowerCase())
+const isDummyConfig = isDummy(firebaseConfig.apiKey) || isDummy(firebaseConfig.projectId)
 
 let app = null
 let db = null
