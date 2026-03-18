@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import {
   getCollection,
   getDocument,
@@ -14,6 +14,11 @@ export function useRecipes() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const { user, userProfile } = useAuth()
+
+  const myRecipes = useMemo(
+    () => (user ? recipes.filter((r) => r.ownerUid === user.uid) : []),
+    [recipes, user]
+  )
 
   const fetchRecipes = useCallback(async (fromServer = false) => {
     try {
@@ -78,6 +83,7 @@ export function useRecipes() {
 
   return {
     recipes,
+    myRecipes,
     loading,
     error,
     getRecipe,

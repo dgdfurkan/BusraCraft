@@ -28,7 +28,7 @@ const CollectionsPage = lazy(() => import('./pages/CollectionsPage'))
 const CollectionDetailPage = lazy(() => import('./pages/CollectionDetailPage'))
 
 function AppRoutes() {
-  const { recipes, loading, getRecipe, addRecipe, updateRecipe, deleteRecipe } = useRecipes()
+  const { recipes, myRecipes, loading, getRecipe, addRecipe, updateRecipe, deleteRecipe } = useRecipes()
   const { categories, addCategory, updateCategory, deleteCategory } = useCategories()
   const { lists, getList, addList, updateList, deleteList, addRecipeToList, removeRecipeFromList } = useLists()
   const { uploadMultiple } = useImageUpload()
@@ -47,11 +47,11 @@ function AppRoutes() {
       <Route element={<AppLayout />}>
         <Route
           path="/"
-          element={<HomePage recipes={recipes} loading={loading} />}
+          element={<HomePage recipes={myRecipes} loading={loading} />}
         />
         <Route
           path="/tarifler"
-          element={<RecipesPage recipes={recipes} loading={loading} categories={categories} />}
+          element={<RecipesPage recipes={myRecipes} loading={loading} categories={categories} />}
         />
         <Route
           path="/tarif/:id"
