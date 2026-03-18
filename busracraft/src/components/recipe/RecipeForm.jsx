@@ -6,6 +6,7 @@ import StepEditor from './StepEditor'
 import ImageUploader from '../ui/ImageUploader'
 import Icon from '../ui/Icon'
 import { DIFFICULTIES } from '../../utils/constants'
+import { useAuth } from '../../context/AuthContext'
 
 const inputClass =
   'w-full px-4 py-3 rounded-xl border border-primary/10 bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm'
@@ -42,6 +43,7 @@ export default function RecipeForm({
   loading = false,
   submitLabel = 'Kaydet',
 }) {
+  const { isMember } = useAuth()
   const [form, setForm] = useState({
     title: '',
     category: '',
@@ -52,6 +54,7 @@ export default function RecipeForm({
     photos: [],
     notes: '',
     tags: [],
+    isPublic: false,
     ...initialData,
   })
   const [tagInput, setTagInput] = useState('')
@@ -257,6 +260,35 @@ export default function RecipeForm({
           className={`${inputClass} resize-none`}
         />
       </div>
+
+      {isMember && (
+        <div className="bg-white border border-primary/10 rounded-xl p-5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Icon name="public" size="text-xl" className="text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-slate-700">Herkese Açık Paylaş</p>
+                <p className="text-xs text-slate-400">Keşfet sayfasında görünsün</p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => updateField('isPublic', !form.isPublic)}
+              className={`relative w-12 h-7 rounded-full transition-colors duration-200 cursor-pointer ${
+                form.isPublic ? 'bg-primary' : 'bg-slate-200'
+              }`}
+            >
+              <span
+                className={`absolute top-0.5 left-0.5 w-6 h-6 rounded-full bg-white shadow-sm transition-transform duration-200 ${
+                  form.isPublic ? 'translate-x-5' : 'translate-x-0'
+                }`}
+              />
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="flex gap-3 pt-2">
         <Button type="submit" loading={loading} className="flex-1">

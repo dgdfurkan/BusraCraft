@@ -1,6 +1,16 @@
+import { useState, useEffect } from 'react'
 import PhotoGallery from './PhotoGallery'
 import RecipeSteps from './RecipeSteps'
 import Icon from '../ui/Icon'
+import { useAuth } from '../../context/AuthContext'
+import { useLikes } from '../../hooks/useLikes'
+import { useSaves } from '../../hooks/useSaves'
+import { useCollections } from '../../hooks/useCollections'
+import LikeButton from '../social/LikeButton'
+import SaveButton from '../social/SaveButton'
+import CommentSection from '../social/CommentSection'
+import SaveModal from '../social/SaveModal'
+import { queryDocuments } from '../../utils/firebaseHelpers'
 
 const infoCardConfig = [
   { key: 'brand', path: 'yarnInfo.brand', icon: 'inventory_2', label: 'İP / YÜN' },
@@ -14,11 +24,34 @@ function getNestedValue(obj, path) {
 }
 
 export default function RecipeDetail({ recipe }) {
+  const { user, isAuthenticated } = useAuth()
+  const [postId, setPostId] = useState(null)
+  const [saveModalOpen, setSaveModalOpen] = useState(false)
+  const [showComments, setShowComments] = useState(false)
+
+  useEffect(() => {
+    if (!recipe?.isPublic || !recipe?.id) return
+    queryDocuments('socialPosts', [
+      { field: 'recipeId', op: '==', value: recipe.id },
+    ], null, 'desc', 1).then((result) => {
+      if (result.docs.length > 0) setPostId(result.docs[0].id)
+    }).catch(() => {})
+  }, [recipe?.id, recipe?.isPublic])
+
+  const { liked, toggle: toggleLike } = useLikes(postId, user?.uid)
+  const { saved, save: savePost } = useSaves(postId, user?.uid)
+  const { collections, add: addCollection } = useCollections(user?.uid)
+
   if (!recipe) return null
 
   const infoCards = infoCardConfig
     .map((cfg) => ({ ...cfg, value: getNestedValue(recipe, cfg.path) }))
     .filter((c) => c.value)
+
+  const handleSave = async (collectionId) => {
+    await savePost(collectionId)
+    setSaveModalOpen(false)
+  }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -71,6 +104,36 @@ export default function RecipeDetail({ recipe }) {
             ))}
           </div>
         )}
+
+        {postId && recipe.isPublic && (
+          <div className="bg-white rounded-xl border border-primary/10 shadow-sm p-4 space-y-4">
+            <div className="flex items-center gap-5">
+              <LikeButton
+                liked={liked}
+                count={0}
+                onToggle={isAuthenticated ? toggleLike : undefined}
+                disabled={!isAuthenticated}
+              />
+              <button
+                type="button"
+                onClick={() => setShowComments(!showComments)}
+                className="flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-primary transition-colors cursor-pointer"
+              >
+                <Icon name="chat_bubble_outline" size="text-xl" />
+                Yorumlar
+              </button>
+              <SaveButton
+                saved={saved}
+                count={0}
+                onClick={isAuthenticated ? () => setSaveModalOpen(true) : undefined}
+                disabled={!isAuthenticated}
+              />
+            </div>
+            {showComments && (
+              <CommentSection postId={postId} commentCount={0} />
+            )}
+          </div>
+        )}
       </div>
 
       <div className="lg:col-span-5">
@@ -82,6 +145,14 @@ export default function RecipeDetail({ recipe }) {
           <RecipeSteps steps={recipe.steps || []} />
         </div>
       </div>
+
+      <SaveModal
+        isOpen={saveModalOpen}
+        onClose={() => setSaveModalOpen(false)}
+        collections={collections}
+        onSave={handleSave}
+        onCreateCollection={addCollection}
+      />
     </div>
   )
 }

@@ -4,10 +4,17 @@ import {
   getDocs,
   getDoc,
   addDoc,
+  setDoc,
   updateDoc,
   deleteDoc,
   query,
   orderBy,
+  where,
+  limit,
+  startAfter,
+  runTransaction,
+  writeBatch,
+  increment,
   serverTimestamp,
 } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
@@ -80,3 +87,49 @@ export async function deleteImage(url) {
     // silently ignore
   }
 }
+
+export async function setDocument(collectionName, docId, data, merge = true) {
+  ensureDb()
+  trackWrite()
+  await setDoc(doc(db, collectionName, docId), {
+    ...data,
+    updatedAt: serverTimestamp(),
+  }, { merge })
+}
+
+export async function queryDocuments(collectionName, constraints = [], sortField, sortDir = 'desc', pageSize, cursor) {
+  ensureDb()
+  trackRead()
+  const parts = [collection(db, collectionName)]
+  constraints.forEach((c) => parts.push(where(c.field, c.op, c.value)))
+  if (sortField) parts.push(orderBy(sortField, sortDir))
+  if (cursor) parts.push(startAfter(cursor))
+  if (pageSize) parts.push(limit(pageSize))
+  const snapshot = await getDocs(query(...parts))
+  return {
+    docs: snapshot.docs.map((d) => ({ id: d.id, ...d.data() })),
+    lastDoc: snapshot.docs[snapshot.docs.length - 1] || null,
+    empty: snapshot.empty,
+  }
+}
+
+export async function executeTransaction(updateFn) {
+  ensureDb()
+  trackWrite()
+  return runTransaction(db, updateFn)
+}
+
+export function getDocRef(collectionName, docId) {
+  return doc(db, collectionName, docId)
+}
+
+export function getCollectionRef(collectionName) {
+  return collection(db, collectionName)
+}
+
+export function createBatch() {
+  ensureDb()
+  return writeBatch(db)
+}
+
+export { serverTimestamp, increment, doc, query, where, orderBy, limit, startAfter, getDocs, getDoc, collection }
