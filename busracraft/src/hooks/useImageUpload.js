@@ -1,43 +1,33 @@
 import { useState, useCallback } from 'react'
-import { compressImage, createThumbnail } from '../utils/imageCompressor'
-import { uploadImage } from '../utils/firebaseHelpers'
+import { compressImage } from '../utils/imageCompressor'
+import { uploadToCloudinary } from '../utils/cloudinary'
+import { useAuth } from '../context/AuthContext'
 
 export function useImageUpload() {
   const [uploading, setUploading] = useState(false)
   const [progress, setProgress] = useState(0)
+  const { user } = useAuth()
 
-  const upload = useCallback(async (file, folder = 'recipes') => {
+  const upload = useCallback(async (file, folder = 'busracraft') => {
     setUploading(true)
     setProgress(10)
 
     try {
       const compressed = await compressImage(file)
-      setProgress(40)
+      setProgress(50)
 
-      const thumbnail = await createThumbnail(file)
-      setProgress(60)
-
-      const timestamp = Date.now()
-      const mainUrl = await uploadImage(
-        compressed,
-        `${folder}/${timestamp}_main.jpg`
-      )
-      setProgress(80)
-
-      const thumbUrl = await uploadImage(
-        thumbnail,
-        `${folder}/${timestamp}_thumb.jpg`
-      )
+      const cloudFolder = user?.uid ? `${folder}/${user.uid}` : folder
+      const url = await uploadToCloudinary(compressed, cloudFolder)
       setProgress(100)
 
-      return { url: mainUrl, thumbnail: thumbUrl }
+      return { url }
     } finally {
       setUploading(false)
       setProgress(0)
     }
-  }, [])
+  }, [user?.uid])
 
-  const uploadMultiple = useCallback(async (files, folder = 'recipes') => {
+  const uploadMultiple = useCallback(async (files, folder = 'busracraft') => {
     setUploading(true)
     const results = []
     for (let i = 0; i < files.length; i++) {

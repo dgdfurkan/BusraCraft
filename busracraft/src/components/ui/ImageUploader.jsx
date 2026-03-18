@@ -1,14 +1,21 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Icon from './Icon'
+import CameraCapture from './CameraCapture'
 
 export default function ImageUploader({ images = [], onChange, maxImages = 10 }) {
   const [dragActive, setDragActive] = useState(false)
+  const [showCamera, setShowCamera] = useState(false)
   const inputRef = useRef(null)
 
   const handleFiles = (files) => {
     const newFiles = Array.from(files).filter((f) => f.type.startsWith('image/'))
     const total = [...images, ...newFiles].slice(0, maxImages)
+    onChange(total)
+  }
+
+  const handleCameraCapture = (file) => {
+    const total = [...images, file].slice(0, maxImages)
     onChange(total)
   }
 
@@ -21,6 +28,8 @@ export default function ImageUploader({ images = [], onChange, maxImages = 10 })
   const removeImage = (index) => {
     onChange(images.filter((_, i) => i !== index))
   }
+
+  const canAddMore = images.length < maxImages
 
   return (
     <div className="space-y-4">
@@ -62,6 +71,24 @@ export default function ImageUploader({ images = [], onChange, maxImages = 10 })
           Maks. {maxImages} fotoğraf
         </p>
       </div>
+
+      {canAddMore && (
+        <button
+          type="button"
+          onClick={() => setShowCamera(true)}
+          className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-dashed border-primary/30 text-primary font-semibold hover:border-primary hover:bg-primary/5 transition-colors cursor-pointer"
+        >
+          <Icon name="photo_camera" size="text-xl" />
+          Kamera ile Çek
+        </button>
+      )}
+
+      {showCamera && (
+        <CameraCapture
+          onCapture={handleCameraCapture}
+          onClose={() => setShowCamera(false)}
+        />
+      )}
 
       <AnimatePresence>
         {images.length > 0 && (

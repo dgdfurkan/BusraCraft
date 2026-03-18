@@ -17,16 +17,11 @@ import {
   increment,
   serverTimestamp,
 } from 'firebase/firestore'
-import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
-import { db, storage } from '../firebase'
+import { db } from '../firebase'
 import { trackRead, trackWrite } from './quotaTracker'
 
 function ensureDb() {
   if (!db) throw new Error('Firebase yapılandırılmamış. .env dosyasını kontrol edin.')
-}
-
-function ensureStorage() {
-  if (!storage) throw new Error('Firebase Storage yapılandırılmamış.')
 }
 
 export async function getCollection(collectionName, sortField = 'createdAt', sortDir = 'desc') {
@@ -69,23 +64,6 @@ export async function deleteDocument(collectionName, docId) {
   ensureDb()
   trackWrite()
   await deleteDoc(doc(db, collectionName, docId))
-}
-
-export async function uploadImage(file, path) {
-  ensureStorage()
-  const storageRef = ref(storage, path)
-  const snapshot = await uploadBytes(storageRef, file)
-  return getDownloadURL(snapshot.ref)
-}
-
-export async function deleteImage(url) {
-  if (!storage) return
-  try {
-    const storageRef = ref(storage, url)
-    await deleteObject(storageRef)
-  } catch {
-    // silently ignore
-  }
 }
 
 export async function setDocument(collectionName, docId, data, merge = true) {

@@ -1,6 +1,5 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore, enableIndexedDbPersistence } from 'firebase/firestore'
-import { getStorage } from 'firebase/storage'
 import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
@@ -18,13 +17,11 @@ const isDummyConfig = isDummy(firebaseConfig.apiKey) || isDummy(firebaseConfig.p
 
 let app = null
 let db = null
-let storage = null
 let auth = null
 
 if (!isDummyConfig) {
   app = initializeApp(firebaseConfig)
   db = getFirestore(app)
-  storage = getStorage(app)
   auth = getAuth(app)
 
   enableIndexedDbPersistence(db).catch((err) => {
@@ -36,5 +33,5 @@ if (!isDummyConfig) {
   })
 }
 
-export { db, storage, auth }
+export { db, auth }
 export default app
