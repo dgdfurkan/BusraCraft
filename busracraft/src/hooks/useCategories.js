@@ -2,12 +2,12 @@ import { useState, useEffect, useCallback } from 'react'
 import {
   getCollection,
   addDocument,
-  setDocument,
   updateDocument,
   deleteDocument,
 } from '../utils/firebaseHelpers'
-import { serverTimestamp } from 'firebase/firestore'
 import { DEFAULT_CATEGORIES } from '../utils/constants'
+
+const defaultIds = new Set(DEFAULT_CATEGORIES.map((c) => c.id))
 
 export function useCategories() {
   const [categories, setCategories] = useState(DEFAULT_CATEGORIES)
@@ -17,22 +17,8 @@ export function useCategories() {
     try {
       setLoading(true)
       const data = await getCollection('categories', 'order', 'asc')
-      if (data.length === 0) {
-        try {
-          for (const cat of DEFAULT_CATEGORIES) {
-            await setDocument('categories', cat.id, {
-              ...cat,
-              createdAt: serverTimestamp(),
-            }, false)
-          }
-          const refreshed = await getCollection('categories', 'order', 'asc')
-          setCategories(refreshed.length > 0 ? refreshed : DEFAULT_CATEGORIES)
-        } catch {
-          setCategories(DEFAULT_CATEGORIES)
-        }
-      } else {
-        setCategories(data)
-      }
+      const userAdded = data.filter((c) => !defaultIds.has(c.id))
+      setCategories([...DEFAULT_CATEGORIES, ...userAdded])
     } catch {
       setCategories(DEFAULT_CATEGORIES)
     } finally {
@@ -53,16 +39,18 @@ export function useCategories() {
     })
     await fetchCategories()
     return id
-  }, [categories.length, fetchCategories])
+  }, [categories, fetchCategories])
 
   const updateCategory = useCallback(async (id, data) => {
+    if (defaultIds.has(id)) {
+      throw new Error('Varsayılan kategoriler düzenlenemez.')
+    }
     await updateDocument('categories', id, data)
     await fetchCategories()
   }, [fetchCategories])
 
   const deleteCategory = useCallback(async (id) => {
-    const cat = categories.find((c) => c.id === id || c.name === id)
-    if (cat?.isDefault) {
+    if (defaultIds.has(id)) {
       throw new Error('Varsayılan kategoriler silinemez.')
     }
     try {

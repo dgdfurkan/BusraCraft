@@ -21,7 +21,7 @@ export default function CategoryGrid({ categories, onEdit, onDelete }) {
           <p className="text-sm font-semibold text-text truncate">{cat.name}</p>
 
           <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-all duration-200 flex gap-1">
-            {onEdit && (
+            {onEdit && !cat.isDefault && (
               <button
                 onClick={() => onEdit(cat)}
                 className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary/20 transition-colors cursor-pointer"
