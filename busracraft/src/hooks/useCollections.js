@@ -35,7 +35,8 @@ export function useCollections(userId) {
 
       setCollections(cols)
     } catch (err) {
-      console.error('Collections fetch error:', err)
+      console.warn('Collections fetch error:', err)
+      setCollections([])
     } finally {
       setLoading(false)
     }
