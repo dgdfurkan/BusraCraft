@@ -2,12 +2,13 @@ import Icon from '../ui/Icon'
 import Dropdown from '../ui/Dropdown'
 import { DEFAULT_CATEGORIES } from '../../utils/constants'
 
-export default function SocialFilterBar({ filters, members = [], onFilterChange, onReset }) {
+export default function SocialFilterBar({ categories = [], filters, members = [], onFilterChange, onReset }) {
+  const cats = categories.length > 0 ? categories : DEFAULT_CATEGORIES
   const categoryOptions = [
     { value: '', label: 'Tüm Kategoriler' },
-    ...DEFAULT_CATEGORIES.map((cat) => ({
-      value: cat.id,
-      label: `${cat.emoji} ${cat.name}`,
+    ...cats.map((cat) => ({
+      value: cat.id || cat.name,
+      label: `${cat.emoji || '📁'} ${cat.name}`,
     })),
   ]
 

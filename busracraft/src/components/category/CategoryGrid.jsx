@@ -29,7 +29,7 @@ export default function CategoryGrid({ categories, onEdit, onDelete }) {
                 <Icon name="edit" size="text-sm" />
               </button>
             )}
-            {onDelete && (
+            {onDelete && !cat.isDefault && (
               <button
                 onClick={() => onDelete(cat.id)}
                 className="w-7 h-7 rounded-full bg-red-50 text-red-400 flex items-center justify-center hover:bg-red-100 transition-colors cursor-pointer"

@@ -10,7 +10,7 @@ import EmptyState from '../components/ui/EmptyState'
 import Button from '../components/ui/Button'
 import Icon from '../components/ui/Icon'
 
-export default function SocialFeedPage() {
+export default function SocialFeedPage({ categories = [] }) {
   const {
     posts, loading, loadingMore, hasMore,
     filters, members, loadMore, updateFilter, resetFilters,
@@ -39,6 +39,7 @@ export default function SocialFeedPage() {
       </div>
 
       <SocialFilterBar
+        categories={categories}
         filters={filters}
         members={members}
         onFilterChange={updateFilter}

@@ -2,9 +2,11 @@ import { useState, useEffect, useCallback } from 'react'
 import {
   getCollection,
   addDocument,
+  setDocument,
   updateDocument,
   deleteDocument,
 } from '../utils/firebaseHelpers'
+import { serverTimestamp } from 'firebase/firestore'
 import { DEFAULT_CATEGORIES } from '../utils/constants'
 
 export function useCategories() {
@@ -18,7 +20,10 @@ export function useCategories() {
       if (data.length === 0) {
         try {
           for (const cat of DEFAULT_CATEGORIES) {
-            await addDocument('categories', cat)
+            await setDocument('categories', cat.id, {
+              ...cat,
+              createdAt: serverTimestamp(),
+            }, false)
           }
           const refreshed = await getCollection('categories', 'order', 'asc')
           setCategories(refreshed.length > 0 ? refreshed : DEFAULT_CATEGORIES)
@@ -40,10 +45,11 @@ export function useCategories() {
   }, [fetchCategories])
 
   const addCategory = useCallback(async (data) => {
+    const maxOrder = Math.max(0, ...categories.map((c) => c.order || 0))
     const id = await addDocument('categories', {
       ...data,
       isDefault: false,
-      order: categories.length + 1,
+      order: maxOrder + 1,
     })
     await fetchCategories()
     return id
@@ -55,13 +61,17 @@ export function useCategories() {
   }, [fetchCategories])
 
   const deleteCategory = useCallback(async (id) => {
+    const cat = categories.find((c) => c.id === id || c.name === id)
+    if (cat?.isDefault) {
+      throw new Error('Varsayılan kategoriler silinemez.')
+    }
     try {
       await deleteDocument('categories', id)
     } catch {
       // Firebase unavailable — allow local-only deletion
     }
     setCategories((prev) => prev.filter((c) => c.id !== id))
-  }, [])
+  }, [categories])
 
   const getCategoryByKey = useCallback(
     (key) => categories.find((c) => c.id === key || c.name === key),

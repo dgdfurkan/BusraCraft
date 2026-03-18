@@ -66,7 +66,7 @@ function AppRoutes() {
         />
         <Route
           path="/kesfet"
-          element={<SocialFeedPage />}
+          element={<SocialFeedPage categories={categories} />}
         />
         <Route
           path="/arama"
