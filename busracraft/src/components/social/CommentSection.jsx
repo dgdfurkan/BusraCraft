@@ -68,7 +68,7 @@ function CommentItem({ comment, onDelete, isOwner }) {
 
 export default function CommentSection({ postId, commentCount = 0 }) {
   const { user, userProfile, isAuthenticated } = useAuth()
-  const { comments, loading, sending, fetchComments, add, remove } = useComments(postId)
+  const { comments, loading, sending, error, fetchComments, add, remove } = useComments(postId)
   const [showAll, setShowAll] = useState(false)
 
   useEffect(() => {
@@ -85,6 +85,11 @@ export default function CommentSection({ postId, commentCount = 0 }) {
 
   return (
     <div className="space-y-3">
+      {error && (
+        <p className="text-sm text-amber-600 bg-amber-50 rounded-lg px-3 py-2">
+          Yorumlar şu an yüklenemiyor. Firestore index oluşturuluyor olabilir; birkaç dakika sonra tekrar deneyin.
+        </p>
+      )}
       {previewComments.length > 0 && (
         <div className="space-y-2.5">
           {previewComments.map((c) => (

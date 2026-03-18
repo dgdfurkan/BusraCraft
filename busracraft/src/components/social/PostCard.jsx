@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useAuth } from '../../context/AuthContext'
 import { useLikes } from '../../hooks/useLikes'
@@ -29,8 +29,11 @@ function Avatar({ name, url }) {
   )
 }
 
+const SCROLL_KEY = 'scroll_kesfet'
+
 export default function PostCard({ post, variant = 'feed' }) {
   const navigate = useNavigate()
+  const location = useLocation()
   const { user, isAuthenticated } = useAuth()
   const { liked, toggle: toggleLike } = useLikes(post.id, user?.uid)
   const { saved, save: savePost } = useSaves(post.id, user?.uid)
@@ -46,7 +49,11 @@ export default function PostCard({ post, variant = 'feed' }) {
   }
 
   const goToRecipe = () => {
-    if (post.recipeId) navigate(`/tarif/${post.recipeId}`)
+    if (!post.recipeId) return
+    if (location.pathname === '/kesfet') {
+      sessionStorage.setItem(SCROLL_KEY, String(window.scrollY))
+    }
+    navigate(`/tarif/${post.recipeId}`)
   }
 
   if (variant === 'grid') {

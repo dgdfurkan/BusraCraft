@@ -6,11 +6,13 @@ export function useComments(postId, pageSize = 20) {
   const [loading, setLoading] = useState(false)
   const [hasMore, setHasMore] = useState(true)
   const [sending, setSending] = useState(false)
+  const [error, setError] = useState(null)
   const cursorRef = useRef(null)
 
   const fetchComments = useCallback(async (reset = true) => {
     if (!postId) return
     setLoading(true)
+    setError(null)
     try {
       if (reset) cursorRef.current = null
       const result = await getComments(postId, pageSize, reset ? null : cursorRef.current)
@@ -23,6 +25,8 @@ export function useComments(postId, pageSize = 20) {
       }
     } catch (err) {
       console.error('Comments fetch error:', err)
+      setError(err?.message || 'Yorumlar yüklenemedi')
+      if (reset) setComments([])
     } finally {
       setLoading(false)
     }
@@ -55,6 +59,7 @@ export function useComments(postId, pageSize = 20) {
     loading,
     hasMore,
     sending,
+    error,
     fetchComments,
     loadMore: () => fetchComments(false),
     add,

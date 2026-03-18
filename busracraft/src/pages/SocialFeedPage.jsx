@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useSocialFeed } from '../hooks/useSocialFeed'
 import PostCard from '../components/social/PostCard'
@@ -17,10 +17,25 @@ export default function SocialFeedPage({ categories = [] }) {
   } = useSocialFeed()
 
   const [view, setView] = useState(() => localStorage.getItem('social_view') || 'feed')
+  const hasRestoredScroll = useRef(false)
 
   useEffect(() => {
     localStorage.setItem('social_view', view)
   }, [view])
+
+  useLayoutEffect(() => {
+    if (loading || hasRestoredScroll.current) return
+    const saved = sessionStorage.getItem('scroll_kesfet')
+    if (!saved) return
+    sessionStorage.removeItem('scroll_kesfet')
+    hasRestoredScroll.current = true
+    const y = parseInt(saved, 10)
+    if (!Number.isNaN(y) && y > 0) {
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: y, behavior: 'instant' })
+      })
+    }
+  }, [loading])
 
   if (loading) return <YarnBallSpinner text="Keşfet yükleniyor..." />
 
