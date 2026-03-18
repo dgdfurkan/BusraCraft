@@ -15,10 +15,10 @@ export function useRecipes() {
   const [error, setError] = useState(null)
   const { user, userProfile } = useAuth()
 
-  const fetchRecipes = useCallback(async () => {
+  const fetchRecipes = useCallback(async (fromServer = false) => {
     try {
       setLoading(true)
-      const data = await getCollection('recipes', 'createdAt', 'desc')
+      const data = await getCollection('recipes', 'createdAt', 'desc', fromServer)
       setRecipes(data)
       setError(null)
     } catch (err) {
@@ -48,7 +48,7 @@ export function useRecipes() {
       } catch { /* non-critical */ }
     }
 
-    await fetchRecipes()
+    await fetchRecipes(true)
     return id
   }, [fetchRecipes, user, userProfile])
 
@@ -67,7 +67,7 @@ export function useRecipes() {
       } catch { /* non-critical */ }
     }
 
-    await fetchRecipes()
+    await fetchRecipes(true)
   }, [fetchRecipes, userProfile])
 
   const deleteRecipe = useCallback(async (id) => {

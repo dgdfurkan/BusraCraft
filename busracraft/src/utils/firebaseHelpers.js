@@ -2,6 +2,7 @@ import {
   collection,
   doc,
   getDocs,
+  getDocsFromServer,
   getDoc,
   addDoc,
   setDoc,
@@ -24,11 +25,11 @@ function ensureDb() {
   if (!db) throw new Error('Firebase yapılandırılmamış. .env dosyasını kontrol edin.')
 }
 
-export async function getCollection(collectionName, sortField = 'createdAt', sortDir = 'desc') {
+export async function getCollection(collectionName, sortField = 'createdAt', sortDir = 'desc', fromServer = false) {
   ensureDb()
   trackRead()
   const q = query(collection(db, collectionName), orderBy(sortField, sortDir))
-  const snapshot = await getDocs(q)
+  const snapshot = fromServer ? await getDocsFromServer(q) : await getDocs(q)
   return snapshot.docs.map((d) => ({ id: d.id, ...d.data() }))
 }
 
