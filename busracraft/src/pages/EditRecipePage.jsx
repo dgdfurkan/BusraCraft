@@ -4,10 +4,12 @@ import PageTransition from '../components/layout/PageTransition'
 import RecipeForm from '../components/recipe/RecipeForm'
 import YarnBallSpinner from '../components/ui/animations/YarnBallSpinner'
 import { useToast } from '../context/ToastContext'
+import { useAuth } from '../context/AuthContext'
 
 export default function EditRecipePage({ categories, getRecipe, updateRecipe, uploadImages }) {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { user } = useAuth()
   const { addToast } = useToast()
   const [recipe, setRecipe] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -21,6 +23,13 @@ export default function EditRecipePage({ categories, getRecipe, updateRecipe, up
     }
     load()
   }, [id, getRecipe])
+
+  useEffect(() => {
+    if (!loading && recipe && user && recipe.ownerUid !== user.uid) {
+      addToast('Bu tarifi düzenleme yetkiniz yok', 'error')
+      navigate(`/tarif/${id}`)
+    }
+  }, [loading, recipe, user, id, navigate, addToast])
 
   const handleSubmit = async (formData) => {
     setSaving(true)
@@ -44,6 +53,7 @@ export default function EditRecipePage({ categories, getRecipe, updateRecipe, up
 
   if (loading) return <YarnBallSpinner />
   if (!recipe) return <div className="text-center py-12 text-text-secondary">Tarif bulunamadı</div>
+  if (user && recipe.ownerUid !== user.uid) return null
 
   return (
     <PageTransition>

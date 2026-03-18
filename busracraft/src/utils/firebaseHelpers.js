@@ -76,7 +76,7 @@ export async function setDocument(collectionName, docId, data, merge = true) {
   }, { merge })
 }
 
-export async function queryDocuments(collectionName, constraints = [], sortField, sortDir = 'desc', pageSize, cursor) {
+export async function queryDocuments(collectionName, constraints = [], sortField, sortDir = 'desc', pageSize, cursor, fromServer = false) {
   ensureDb()
   trackRead()
   const parts = [collection(db, collectionName)]
@@ -84,7 +84,8 @@ export async function queryDocuments(collectionName, constraints = [], sortField
   if (sortField) parts.push(orderBy(sortField, sortDir))
   if (cursor) parts.push(startAfter(cursor))
   if (pageSize) parts.push(limit(pageSize))
-  const snapshot = await getDocs(query(...parts))
+  const q = query(...parts)
+  const snapshot = fromServer ? await getDocsFromServer(q) : await getDocs(q)
   return {
     docs: snapshot.docs.map((d) => ({ id: d.id, ...d.data() })),
     lastDoc: snapshot.docs[snapshot.docs.length - 1] || null,

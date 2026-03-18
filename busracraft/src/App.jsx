@@ -71,7 +71,7 @@ function AppRoutes() {
         />
         <Route
           path="/arama"
-          element={<SearchPage recipes={recipes} categories={categories} />}
+          element={<SearchPage recipes={myRecipes} categories={categories} />}
         />
         <Route path="/ayarlar" element={<SettingsPage />} />
 
@@ -135,7 +135,7 @@ function AppRoutes() {
                 updateList={updateList}
                 deleteList={deleteList}
                 removeRecipeFromList={removeRecipeFromList}
-                recipes={recipes}
+                recipes={myRecipes}
               />
             </MemberOnlyRoute>
           }

@@ -5,6 +5,7 @@ import {
   addDocument,
   updateDocument,
   deleteDocument,
+  queryDocuments,
 } from '../utils/firebaseHelpers'
 import { useAuth } from '../context/AuthContext'
 import { createSocialPost, deleteSocialPostByRecipe } from '../utils/socialHelpers'
@@ -15,23 +16,34 @@ export function useRecipes() {
   const [error, setError] = useState(null)
   const { user, userProfile } = useAuth()
 
-  const myRecipes = useMemo(
-    () => (user ? recipes.filter((r) => r.ownerUid === user.uid) : []),
-    [recipes, user]
-  )
+  const myRecipes = useMemo(() => recipes, [recipes])
 
   const fetchRecipes = useCallback(async (fromServer = false) => {
+    if (!user?.uid) {
+      setRecipes([])
+      setLoading(false)
+      return
+    }
     try {
       setLoading(true)
-      const data = await getCollection('recipes', 'createdAt', 'desc', fromServer)
-      setRecipes(data)
+      const result = await queryDocuments(
+        'recipes',
+        [{ field: 'ownerUid', op: '==', value: user.uid }],
+        'createdAt',
+        'desc',
+        undefined,
+        undefined,
+        fromServer
+      )
+      setRecipes(result.docs)
       setError(null)
     } catch (err) {
-      setError(err.message)
+      setError(err?.message || 'Tarifler yüklenemedi')
+      setRecipes([])
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [user?.uid])
 
   useEffect(() => {
     fetchRecipes()

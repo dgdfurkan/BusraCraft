@@ -21,14 +21,14 @@ service cloud.firestore {
         || resource.data.isPublic == true
         || (request.auth != null && resource.data.ownerUid == request.auth.uid);
       allow create: if request.auth != null && hasMemberRole();
-      allow update, delete: if request.auth != null
-        && (resource.data.ownerUid == request.auth.uid || hasMemberRole());
+      allow update, delete: if request.auth != null && resource.data.ownerUid == request.auth.uid;
     }
 
-    // Sosyal postlar: Public olanlar herkese açık
+    // Sosyal postlar: Sadece sahibi silebilir/güncelleyebilir
     match /socialPosts/{postId} {
       allow read: if resource.data.isPublic == true;
-      allow create, update, delete: if request.auth != null && hasMemberRole();
+      allow create: if request.auth != null && hasMemberRole();
+      allow update, delete: if request.auth != null && resource.data.ownerUid == request.auth.uid;
     }
 
     // Beğeniler: Giriş yapmış herkes ekleyebilir/silebilir (kendi like'ı)
