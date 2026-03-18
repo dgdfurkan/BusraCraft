@@ -1,12 +1,13 @@
 import { useState, useCallback } from 'react'
 import { compressImage } from '../utils/imageCompressor'
 import { uploadToCloudinary } from '../utils/cloudinary'
+import { slugify } from '../utils/slugify'
 import { useAuth } from '../context/AuthContext'
 
 export function useImageUpload() {
   const [uploading, setUploading] = useState(false)
   const [progress, setProgress] = useState(0)
-  const { user } = useAuth()
+  const { user, userProfile } = useAuth()
 
   const upload = useCallback(async (file, folder = 'busracraft') => {
     setUploading(true)
@@ -16,7 +17,9 @@ export function useImageUpload() {
       const compressed = await compressImage(file)
       setProgress(50)
 
-      const cloudFolder = user?.uid ? `${folder}/${user.uid}` : folder
+      const userName = slugify(userProfile?.displayName || user?.displayName || '')
+      const subFolder = userName ? `${userName}-${user?.uid?.slice(0, 6) || ''}` : user?.uid || 'anon'
+      const cloudFolder = user?.uid ? `${folder}/${subFolder}` : folder
       const url = await uploadToCloudinary(compressed, cloudFolder)
       setProgress(100)
 
@@ -25,7 +28,7 @@ export function useImageUpload() {
       setUploading(false)
       setProgress(0)
     }
-  }, [user?.uid])
+  }, [user?.uid, user?.displayName, userProfile?.displayName])
 
   const uploadMultiple = useCallback(async (files, folder = 'busracraft') => {
     setUploading(true)

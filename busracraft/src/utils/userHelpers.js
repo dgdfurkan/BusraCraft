@@ -14,15 +14,25 @@ const DEFAULT_PROFILE = {
 
 export async function createUserProfile(uid, data = {}) {
   const existing = await getDocument(USERS_COLLECTION, uid)
-  if (existing) return existing
+  const profile = { ...DEFAULT_PROFILE, ...(existing || {}), ...data }
 
-  const profile = {
-    ...DEFAULT_PROFILE,
-    ...data,
+  if (existing) {
+    const hasUpdates = (data.displayName !== undefined && data.displayName !== existing.displayName) ||
+      (data.avatarUrl !== undefined && data.avatarUrl !== existing.avatarUrl)
+    if (hasUpdates) {
+      await updateDocument(USERS_COLLECTION, uid, {
+        displayName: profile.displayName,
+        avatarUrl: profile.avatarUrl,
+      })
+    }
+    return { id: uid, ...profile }
+  }
+
+  await setDocument(USERS_COLLECTION, uid, {
+    ...profile,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
-  }
-  await setDocument(USERS_COLLECTION, uid, profile, false)
+  }, false)
   return { id: uid, ...profile }
 }
 
