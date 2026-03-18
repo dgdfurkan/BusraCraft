@@ -47,10 +47,7 @@ export default function LoginPage() {
       await loginWithGoogle()
       navigate(from, { replace: true })
     } catch (err) {
-      if (err.code !== 'auth/popup-closed-by-user') {
-        setError('Google ile giriş yapılamadı.')
-      }
-    } finally {
+      setError('Google ile giriş yapılamadı.')
       setLoading(false)
     }
   }

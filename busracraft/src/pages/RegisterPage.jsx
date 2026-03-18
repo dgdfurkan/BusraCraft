@@ -53,10 +53,7 @@ export default function RegisterPage() {
       await loginWithGoogle()
       navigate('/', { replace: true })
     } catch (err) {
-      if (err.code !== 'auth/popup-closed-by-user') {
-        setError('Google ile kayıt yapılamadı.')
-      }
-    } finally {
+      setError('Google ile kayıt yapılamadı.')
       setLoading(false)
     }
   }

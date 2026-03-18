@@ -1,0 +1,39 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "socialPosts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "isPublic", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "socialPosts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "isPublic", "order": "ASCENDING" },
+        { "fieldPath": "category", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "socialPosts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "isPublic", "order": "ASCENDING" },
+        { "fieldPath": "ownerUid", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "collections",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "userId", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

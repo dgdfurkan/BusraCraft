@@ -3,7 +3,8 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   GoogleAuthProvider,
   signOut,
   updateProfile,
@@ -34,16 +35,25 @@ export function AuthProvider({ children }) {
         setLoading(false)
         return
       }
-
       try {
         await createUserProfile(firebaseUser.uid, {
           displayName: firebaseUser.displayName || '',
           avatarUrl: firebaseUser.photoURL || '',
         })
       } catch { /* profile might already exist */ }
-
       setLoading(false)
     })
+
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result?.user) {
+          return createUserProfile(result.user.uid, {
+            displayName: result.user.displayName || '',
+            avatarUrl: result.user.photoURL || '',
+          })
+        }
+      })
+      .catch(() => {})
 
     return () => unsubAuth()
   }, [])
@@ -82,12 +92,7 @@ export function AuthProvider({ children }) {
 
   const loginWithGoogle = useCallback(async () => {
     if (!auth) throw new Error('Firebase yapılandırılmamış.')
-    const cred = await signInWithPopup(auth, googleProvider)
-    await createUserProfile(cred.user.uid, {
-      displayName: cred.user.displayName || '',
-      avatarUrl: cred.user.photoURL || '',
-    })
-    return cred
+    await signInWithRedirect(auth, googleProvider)
   }, [])
 
   const logout = useCallback(async () => {
