@@ -27,8 +27,9 @@ export default function AddRecipePage({ categories, addRecipe, uploadImages }) {
       await addRecipe({ ...rest, photos: photoUrls })
       addToast('Tarif başarıyla eklendi!', 'success')
       navigate('/tarifler')
-    } catch {
-      addToast('Tarif eklenirken hata oluştu', 'error')
+    } catch (err) {
+      console.error('Tarif ekleme hatası:', err)
+      addToast(err?.message || 'Tarif eklenirken hata oluştu', 'error')
     } finally {
       setLoading(false)
     }
