@@ -3,10 +3,12 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Yardımcı: Kullanıcı member mı?
+    // Yardımcı: Kullanıcı member mı? (isMember veya role ile)
     function isMember() {
       return exists(/databases/$(database)/documents/users/$(request.auth.uid))
-        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isMember == true;
+        && (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isMember == true
+            || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'member'
+            || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
     }
 
     // Kullanıcı profilleri: Sadece kendi profilini oku/yaz
