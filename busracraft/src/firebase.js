@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getFirestore, enableIndexedDbPersistence } from 'firebase/firestore'
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
@@ -21,16 +21,10 @@ let auth = null
 
 if (!isDummyConfig) {
   app = initializeApp(firebaseConfig)
-  db = getFirestore(app)
-  auth = getAuth(app)
-
-  enableIndexedDbPersistence(db).catch((err) => {
-    if (err.code === 'failed-precondition') {
-      console.warn('Offline persistence: multiple tabs open')
-    } else if (err.code === 'unimplemented') {
-      console.warn('Offline persistence: browser not supported')
-    }
+  db = initializeFirestore(app, {
+    localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }),
   })
+  auth = getAuth(app)
 }
 
 export { db, auth }
