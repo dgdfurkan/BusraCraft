@@ -3,11 +3,10 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Yardımcı: Kullanıcı member mı? (isMember veya role ile)
-    function isMember() {
+    // Yardımcı: Kullanıcı member/admin rolünde mi? (sadece role kullanılır)
+    function hasMemberRole() {
       return exists(/databases/$(database)/documents/users/$(request.auth.uid))
-        && (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isMember == true
-            || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'member'
+        && (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'member'
             || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
     }
 
@@ -21,15 +20,15 @@ service cloud.firestore {
       allow read: if resource == null
         || resource.data.isPublic == true
         || (request.auth != null && resource.data.ownerUid == request.auth.uid);
-      allow create: if request.auth != null && isMember();
+      allow create: if request.auth != null && hasMemberRole();
       allow update, delete: if request.auth != null
-        && (resource.data.ownerUid == request.auth.uid || isMember());
+        && (resource.data.ownerUid == request.auth.uid || hasMemberRole());
     }
 
     // Sosyal postlar: Public olanlar herkese açık
     match /socialPosts/{postId} {
       allow read: if resource.data.isPublic == true;
-      allow create, update, delete: if request.auth != null && isMember();
+      allow create, update, delete: if request.auth != null && hasMemberRole();
     }
 
     // Beğeniler: Giriş yapmış herkes ekleyebilir/silebilir (kendi like'ı)
@@ -69,12 +68,12 @@ service cloud.firestore {
     // Kategoriler: Member okuyup yazabilir
     match /categories/{categoryId} {
       allow read: if true;
-      allow write: if request.auth != null && isMember();
+      allow write: if request.auth != null && hasMemberRole();
     }
 
     // Listeler: Sadece member erişebilir (userId şu an yok, member-only)
     match /lists/{listId} {
-      allow read, write: if request.auth != null && isMember();
+      allow read, write: if request.auth != null && hasMemberRole();
     }
   }
 }

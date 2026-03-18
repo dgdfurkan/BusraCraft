@@ -101,7 +101,7 @@ export function AuthProvider({ children }) {
   }, [])
 
   const isAuthenticated = !!user
-  const isMember = userProfile?.isMember === true || userProfile?.role === 'member' || userProfile?.role === 'admin'
+  const isMember = userProfile?.role === 'member' || userProfile?.role === 'admin'
   const isVisitor = isAuthenticated && !isMember
   const isAdmin = userProfile?.role === 'admin'
 

@@ -8,11 +8,10 @@ const DEFAULT_PROFILE = {
   avatarUrl: '',
   bio: '',
   role: 'visitor',
-  isMember: false,
   stats: { recipeCount: 0, likeCount: 0 },
 }
 
-// Giriş/kayıt sırasında SADECE bunlar güncellenir. role/isMember ASLA buradan değiştirilmez.
+// Giriş/kayıt sırasında SADECE bunlar güncellenir. role ASLA buradan değiştirilmez.
 const ALLOWED_ON_LOGIN = ['displayName', 'avatarUrl']
 
 export async function createUserProfile(uid, data = {}) {
