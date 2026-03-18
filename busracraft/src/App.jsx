@@ -2,8 +2,9 @@ import { lazy, Suspense } from 'react'
 import { HashRouter, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from './context/ThemeContext'
 import { ToastProvider } from './context/ToastContext'
-import { AuthProvider } from './context/AuthContext'
+import { AuthProvider, useAuth } from './context/AuthContext'
 import AppLayout from './components/layout/AppLayout'
+import AppLoader from './components/ui/AppLoader'
 import YarnBallSpinner from './components/ui/animations/YarnBallSpinner'
 import { useRecipes } from './hooks/useRecipes'
 import { useCategories } from './hooks/useCategories'
@@ -160,16 +161,25 @@ function AppRoutes() {
   )
 }
 
+function AppContent() {
+  const { loading: authLoading } = useAuth()
+  return (
+    <AppLoader loading={authLoading}>
+      <HashRouter>
+        <Suspense fallback={<YarnBallSpinner />}>
+          <AppRoutes />
+        </Suspense>
+      </HashRouter>
+    </AppLoader>
+  )
+}
+
 export default function App() {
   return (
     <ThemeProvider>
       <ToastProvider>
         <AuthProvider>
-          <HashRouter>
-            <Suspense fallback={<YarnBallSpinner />}>
-              <AppRoutes />
-            </Suspense>
-          </HashRouter>
+          <AppContent />
         </AuthProvider>
       </ToastProvider>
     </ThemeProvider>
