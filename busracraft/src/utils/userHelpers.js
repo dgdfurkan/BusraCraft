@@ -12,13 +12,19 @@ const DEFAULT_PROFILE = {
   stats: { recipeCount: 0, likeCount: 0 },
 }
 
+// Giriş/kayıt sırasında SADECE bunlar güncellenir. role/isMember ASLA buradan değiştirilmez.
+const ALLOWED_ON_LOGIN = ['displayName', 'avatarUrl']
+
 export async function createUserProfile(uid, data = {}) {
   const existing = await getDocument(USERS_COLLECTION, uid)
-  const profile = { ...DEFAULT_PROFILE, ...(existing || {}), ...data }
+  const safeData = Object.fromEntries(
+    Object.entries(data).filter(([k]) => ALLOWED_ON_LOGIN.includes(k))
+  )
+  const profile = { ...DEFAULT_PROFILE, ...(existing || {}), ...safeData }
 
   if (existing) {
-    const hasUpdates = (data.displayName !== undefined && data.displayName !== existing.displayName) ||
-      (data.avatarUrl !== undefined && data.avatarUrl !== existing.avatarUrl)
+    const hasUpdates = (safeData.displayName !== undefined && safeData.displayName !== existing.displayName) ||
+      (safeData.avatarUrl !== undefined && safeData.avatarUrl !== existing.avatarUrl)
     if (hasUpdates) {
       await updateDocument(USERS_COLLECTION, uid, {
         displayName: profile.displayName,
