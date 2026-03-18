@@ -1,6 +1,17 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { getSocialPosts, getPublicMembers } from '../utils/socialHelpers'
 
+const FETCH_TIMEOUT_MS = 8000
+
+function withTimeout(promise, ms) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('İstek zaman aşımına uğradı.')), ms)
+    ),
+  ])
+}
+
 export function useSocialFeed(pageSize = 20) {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -23,10 +34,9 @@ export function useSocialFeed(pageSize = 20) {
       if (filters.category) activeFilters.category = filters.category
       if (filters.ownerUid) activeFilters.ownerUid = filters.ownerUid
 
-      const result = await getSocialPosts(
-        activeFilters,
-        pageSize,
-        reset ? null : cursorRef.current
+      const result = await withTimeout(
+        getSocialPosts(activeFilters, pageSize, reset ? null : cursorRef.current),
+        FETCH_TIMEOUT_MS
       )
 
       cursorRef.current = result.lastDoc
@@ -38,7 +48,8 @@ export function useSocialFeed(pageSize = 20) {
         setPosts((prev) => [...prev, ...result.docs])
       }
     } catch (err) {
-      console.error('Social feed error:', err)
+      console.warn('Social feed error:', err.message || err)
+      if (reset) setPosts([])
     } finally {
       setLoading(false)
       setLoadingMore(false)

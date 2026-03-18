@@ -46,14 +46,20 @@ export async function deleteSocialPostByRecipe(recipeId) {
 }
 
 export async function getSocialPosts(filters = {}, pageSize = 20, cursor = null) {
-  const constraints = [{ field: 'isPublic', op: '==', value: true }]
-  if (filters.category) {
-    constraints.push({ field: 'category', op: '==', value: filters.category })
+  if (!db) return { docs: [], lastDoc: null, empty: true }
+  try {
+    const constraints = [{ field: 'isPublic', op: '==', value: true }]
+    if (filters.category) {
+      constraints.push({ field: 'category', op: '==', value: filters.category })
+    }
+    if (filters.ownerUid) {
+      constraints.push({ field: 'ownerUid', op: '==', value: filters.ownerUid })
+    }
+    return await queryDocuments('socialPosts', constraints, 'createdAt', 'desc', pageSize, cursor)
+  } catch (err) {
+    console.warn('getSocialPosts error:', err)
+    return { docs: [], lastDoc: null, empty: true }
   }
-  if (filters.ownerUid) {
-    constraints.push({ field: 'ownerUid', op: '==', value: filters.ownerUid })
-  }
-  return queryDocuments('socialPosts', constraints, 'createdAt', 'desc', pageSize, cursor)
 }
 
 export async function toggleLike(postId, userId) {
@@ -203,19 +209,25 @@ export async function getCollectionSaves(collectionId, pageSize = 50, cursor = n
 }
 
 export async function getPublicMembers() {
-  const result = await queryDocuments('socialPosts', [
-    { field: 'isPublic', op: '==', value: true },
-  ], 'createdAt', 'desc', 100)
+  if (!db) return []
+  try {
+    const result = await queryDocuments('socialPosts', [
+      { field: 'isPublic', op: '==', value: true },
+    ], 'createdAt', 'desc', 100)
 
-  const memberMap = new Map()
-  result.docs.forEach((post) => {
-    if (!memberMap.has(post.ownerUid)) {
-      memberMap.set(post.ownerUid, {
-        uid: post.ownerUid,
-        displayName: post.ownerName,
-        avatarUrl: post.ownerAvatar,
-      })
-    }
-  })
-  return Array.from(memberMap.values())
+    const memberMap = new Map()
+    result.docs.forEach((post) => {
+      if (!memberMap.has(post.ownerUid)) {
+        memberMap.set(post.ownerUid, {
+          uid: post.ownerUid,
+          displayName: post.ownerName,
+          avatarUrl: post.ownerAvatar,
+        })
+      }
+    })
+    return Array.from(memberMap.values())
+  } catch (err) {
+    console.warn('getPublicMembers error:', err)
+    return []
+  }
 }
