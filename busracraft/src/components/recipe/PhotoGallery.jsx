@@ -35,49 +35,49 @@ export default function PhotoGallery({ photos = [], title, category, difficulty 
 
   return (
     <>
-      <div className="relative group w-full aspect-[16/10] rounded-xl overflow-hidden bg-primary/5 shadow-sm border border-primary/10">
-        <div
-          className="w-full h-full cursor-pointer touch-pan-y"
-          onClick={() => setFullscreen(true)}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
-          <AnimatePresence mode="wait">
-            <motion.img
-              key={current}
-              src={photos[current]}
-              alt={title || ''}
-              className="w-full h-full object-cover select-none"
-              draggable={false}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-            />
-          </AnimatePresence>
-        </div>
+      <div className="space-y-2">
+        <div className="relative group w-full aspect-[16/10] rounded-xl overflow-hidden bg-primary/5 shadow-sm border border-primary/10">
+          <div
+            className="w-full h-full cursor-pointer touch-pan-y"
+            onClick={() => setFullscreen(true)}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={current}
+                src={photos[current]}
+                alt={title || ''}
+                className="w-full h-full object-cover select-none"
+                draggable={false}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+              />
+            </AnimatePresence>
+          </div>
 
-        {photos.length > 1 && (
-          <>
-            <button
-              onClick={prev}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm text-slate-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md cursor-pointer"
-            >
-              <Icon name="chevron_left" size="text-xl" />
-            </button>
-            <button
-              onClick={next}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm text-slate-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md cursor-pointer"
-            >
-              <Icon name="chevron_right" size="text-xl" />
-            </button>
-          </>
-        )}
+          {photos.length > 1 && (
+            <>
+              <button
+                onClick={prev}
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm text-slate-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md cursor-pointer"
+              >
+                <Icon name="chevron_left" size="text-xl" />
+              </button>
+              <button
+                onClick={next}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm text-slate-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md cursor-pointer"
+              >
+                <Icon name="chevron_right" size="text-xl" />
+              </button>
+            </>
+          )}
 
-        {(title || photos.length > 1) && (
-          <div className="absolute bottom-2 left-2 right-2 md:bottom-3 md:left-3 md:right-3 flex items-end justify-between gap-2 z-10">
-            {title && (
-              <div className="flex-1 min-w-0 bg-white/85 backdrop-blur-sm px-3 py-2 md:px-4 md:py-2.5 rounded-lg border border-primary/10 shadow-md">
+          {title && (
+            <div className="absolute bottom-2 left-2 right-2 md:bottom-3 md:left-3 md:right-3 z-10">
+              <div className="bg-white/85 backdrop-blur-sm px-3 py-2 md:px-4 md:py-2.5 rounded-lg border border-primary/10 shadow-md">
                 <h2 className="text-sm md:text-base font-bold text-slate-800 leading-tight truncate">{title}</h2>
                 <div className="flex items-center gap-2 mt-1 flex-wrap">
                   {category && (
@@ -94,22 +94,23 @@ export default function PhotoGallery({ photos = [], title, category, difficulty 
                   )}
                 </div>
               </div>
-            )}
-            {photos.length > 1 && (
-              <div className="flex gap-1.5 shrink-0 pb-1">
-                {photos.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={(e) => { e.stopPropagation(); setCurrent(i) }}
-                    className={`rounded-full transition-all cursor-pointer ${
-                      i === current
-                        ? 'w-2.5 h-2.5 bg-white shadow-md'
-                        : 'w-2 h-2 bg-white/50 hover:bg-white/70'
-                    }`}
-                  />
-                ))}
-              </div>
-            )}
+            </div>
+          )}
+        </div>
+
+        {photos.length > 1 && (
+          <div className="flex justify-center gap-1.5">
+            {photos.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`rounded-full transition-all cursor-pointer ${
+                  i === current
+                    ? 'w-2.5 h-2.5 bg-primary shadow-md'
+                    : 'w-2 h-2 bg-primary/30 hover:bg-primary/50'
+                }`}
+              />
+            ))}
           </div>
         )}
       </div>

@@ -5,6 +5,15 @@ import Logo from '../ui/Logo'
 
 const difficultyLabels = { easy: 'Kolay', medium: 'Orta', hard: 'Zor' }
 
+const PRIMARY = '#f471b5'
+const PRIMARY_DARK = '#ec4899'
+const SLATE_800 = '#1e293b'
+const SLATE_600 = '#475569'
+const SLATE_500 = '#64748b'
+const SLATE_400 = '#94a3b8'
+const SLATE_100 = '#f1f5f9'
+const WHITE = '#ffffff'
+
 export default function RecipeShareCard({ recipe, onClose }) {
   const cardRef = useRef(null)
   const [generating, setGenerating] = useState(false)
@@ -18,7 +27,7 @@ export default function RecipeShareCard({ recipe, onClose }) {
         scale: 3,
         useCORS: true,
         allowTaint: true,
-        backgroundColor: '#ffffff',
+        backgroundColor: WHITE,
         logging: false,
       })
 
@@ -64,7 +73,7 @@ export default function RecipeShareCard({ recipe, onClose }) {
         scale: 3,
         useCORS: true,
         allowTaint: true,
-        backgroundColor: '#ffffff',
+        backgroundColor: WHITE,
         logging: false,
       })
 
@@ -89,88 +98,136 @@ export default function RecipeShareCard({ recipe, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-[70] bg-black/60 flex items-center justify-center p-4"
+      className="fixed inset-0 z-[70] bg-black/60 flex items-end sm:items-center justify-center sm:p-4"
       onClick={(e) => e.target === e.currentTarget && onClose?.()}
     >
       <div
-        className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-hidden flex flex-col"
+        className="bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full sm:max-w-md max-h-[92vh] overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p-4 border-b border-slate-100 flex items-center justify-between">
-          <h3 className="font-bold text-slate-800">Tarifi Paylaş</h3>
+        <div className="p-4 border-b border-slate-200 flex items-center justify-between shrink-0">
+          <h3 className="font-bold text-slate-800 text-lg">Tarifi Paylaş</h3>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500 cursor-pointer"
+            className="w-10 h-10 rounded-full hover:bg-slate-100 active:bg-slate-200 flex items-center justify-center text-slate-500 cursor-pointer text-xl"
           >
             ✕
           </button>
         </div>
 
-        <div className="p-4 overflow-auto flex-1">
+        <div className="p-4 overflow-auto flex-1 min-h-0 flex flex-col items-center">
           <div
             ref={cardRef}
-            className="bg-white rounded-xl overflow-hidden shadow-lg"
-            style={{ width: 400 }}
+            style={{
+              width: 340,
+              maxWidth: '100%',
+              backgroundColor: WHITE,
+              borderRadius: 12,
+              overflow: 'hidden',
+              boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)',
+            }}
           >
-            {/* Cover */}
             {recipe.photos?.[0] ? (
-              <div className="relative aspect-[4/3] bg-slate-100">
+              <div style={{ position: 'relative', aspectRatio: '4/3', backgroundColor: SLATE_100 }}>
                 <img
                   src={recipe.photos[0]}
                   alt=""
-                  className="w-full h-full object-cover"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3 flex items-center gap-2">
-                  <Logo size={32} className="opacity-95" />
-                  <span className="text-white font-bold text-sm drop-shadow">BüşraCraft</span>
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.5), transparent)',
+                  }}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: 12,
+                    left: 12,
+                    right: 12,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                  }}
+                >
+                  <span style={{ opacity: 0.95 }}><Logo size={28} /></span>
+                  <span style={{ color: WHITE, fontWeight: 700, fontSize: 13, textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>
+                    BüşraCraft
+                  </span>
                 </div>
               </div>
             ) : (
-              <div className="bg-gradient-to-br from-primary/90 to-primary p-6 flex items-center gap-3">
-                <Logo size={48} className="opacity-95" />
-                <span className="text-white font-bold text-xl">BüşraCraft</span>
+              <div
+                style={{
+                  background: `linear-gradient(135deg, ${PRIMARY} 0%, ${PRIMARY_DARK} 100%)`,
+                  padding: 24,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                }}
+              >
+                <span style={{ opacity: 0.95 }}><Logo size={40} /></span>
+                <span style={{ color: WHITE, fontWeight: 700, fontSize: 18 }}>BüşraCraft</span>
               </div>
             )}
 
-            {/* Content */}
-            <div className="p-5 space-y-4">
-              <div>
-                <h2 className="text-lg font-bold text-slate-800 leading-tight">
-                  {recipe.title}
-                </h2>
-                <div className="flex items-center gap-3 mt-2 flex-wrap">
-                  {recipe.categoryName && (
-                    <span className="text-xs font-semibold text-primary">
-                      {recipe.categoryName}
-                    </span>
-                  )}
-                  {recipe.difficulty && (
-                    <span className="text-xs text-slate-500">
-                      {difficultyLabels[recipe.difficulty] || recipe.difficulty}
-                    </span>
-                  )}
-                </div>
+            <div style={{ padding: 20 }}>
+              <h2 style={{ fontSize: 17, fontWeight: 700, color: SLATE_800, lineHeight: 1.3, margin: 0 }}>
+                {recipe.title}
+              </h2>
+              <div style={{ display: 'flex', gap: 12, marginTop: 8, flexWrap: 'wrap' }}>
+                {recipe.categoryName && (
+                  <span style={{ fontSize: 12, fontWeight: 600, color: PRIMARY }}>{recipe.categoryName}</span>
+                )}
+                {recipe.difficulty && (
+                  <span style={{ fontSize: 12, color: SLATE_500 }}>
+                    {difficultyLabels[recipe.difficulty] || recipe.difficulty}
+                  </span>
+                )}
               </div>
 
               {(recipe.steps || []).length > 0 && (
-                <div className="space-y-2">
-                  <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                <div style={{ marginTop: 16 }}>
+                  <h4 style={{ fontSize: 10, fontWeight: 700, color: SLATE_500, letterSpacing: '0.05em', marginBottom: 8, textTransform: 'uppercase' }}>
                     Yapılış
                   </h4>
-                  <div className="space-y-2">
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                     {(recipe.steps || []).slice(0, 8).map((step, i) => (
-                      <div key={i} className="flex gap-2">
-                        <span className="w-5 h-5 rounded-full bg-primary text-white text-[10px] font-bold flex items-center justify-center shrink-0">
+                      <div key={i} style={{ display: 'flex', gap: 8 }}>
+                        <span
+                          style={{
+                            width: 20,
+                            height: 20,
+                            borderRadius: '50%',
+                            backgroundColor: PRIMARY,
+                            color: WHITE,
+                            fontSize: 10,
+                            fontWeight: 700,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                          }}
+                        >
                           {step.order || i + 1}
                         </span>
-                        <p className="text-xs text-slate-600 leading-relaxed flex-1 line-clamp-2">
+                        <p
+                          style={{
+                            fontSize: 12,
+                            color: SLATE_600,
+                            lineHeight: 1.5,
+                            margin: 0,
+                            flex: 1,
+                          }}
+                        >
                           {step.text}
                         </p>
                       </div>
                     ))}
                     {(recipe.steps || []).length > 8 && (
-                      <p className="text-[10px] text-slate-400 italic">
+                      <p style={{ fontSize: 10, color: SLATE_400, fontStyle: 'italic', margin: 0 }}>
                         +{(recipe.steps || []).length - 8} adım daha...
                       </p>
                     )}
@@ -178,26 +235,41 @@ export default function RecipeShareCard({ recipe, onClose }) {
                 </div>
               )}
 
-              <div className="pt-2 border-t border-slate-100 flex items-center justify-center gap-1">
-                <Logo size={16} />
-                <span className="text-[10px] font-semibold text-slate-500">BüşraCraft</span>
+              <div
+                style={{
+                  paddingTop: 12,
+                  marginTop: 16,
+                  borderTop: `1px solid ${SLATE_100}`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 4,
+                }}
+              >
+                <Logo size={14} />
+                <span style={{ fontSize: 10, fontWeight: 600, color: SLATE_500 }}>BüşraCraft</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="p-4 border-t border-slate-100 flex gap-3">
+        <div
+          className="p-4 pt-2 border-t border-slate-200 flex gap-3 shrink-0"
+          style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}
+        >
           <button
             onClick={copyToClipboard}
             disabled={generating}
-            className="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm transition-colors disabled:opacity-50 cursor-pointer"
+            className="flex-1 py-3.5 rounded-xl font-semibold text-base transition-colors disabled:opacity-50 cursor-pointer active:scale-[0.98]"
+            style={{ backgroundColor: SLATE_100, color: SLATE_800 }}
           >
             Kopyala
           </button>
           <button
             onClick={generateAndShare}
             disabled={generating}
-            className="flex-1 py-2.5 rounded-xl bg-primary hover:bg-primary-hover text-white font-semibold text-sm transition-colors disabled:opacity-50 cursor-pointer"
+            className="flex-1 py-3.5 rounded-xl font-semibold text-base transition-colors disabled:opacity-50 cursor-pointer active:scale-[0.98]"
+            style={{ backgroundColor: PRIMARY, color: WHITE }}
           >
             {generating ? 'Hazırlanıyor...' : 'İndir / Paylaş'}
           </button>
