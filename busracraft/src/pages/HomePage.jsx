@@ -5,7 +5,16 @@ import PageTransition from '../components/layout/PageTransition'
 import RecipeCard from '../components/recipe/RecipeCard'
 import Icon from '../components/ui/Icon'
 import CatYarnAnimation from '../components/ui/animations/CatYarnAnimation'
+import { useAuth } from '../context/AuthContext'
 import { MOTIVATIONAL_QUOTES } from '../utils/constants'
+
+const BANNER_IMAGES = [
+  'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=1200',
+  'https://images.unsplash.com/photo-1576671081837-49000212a370?w=1200',
+  'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=1200',
+  'https://images.unsplash.com/photo-1604176354204-9268737828e4?w=1200',
+  'https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=1200',
+]
 
 const STAT_ITEMS = [
   { key: 'total', icon: 'menu_book', label: 'Toplam Tarif', color: 'bg-primary/20 text-primary' },
@@ -21,11 +30,21 @@ const QUICK_ACTIONS = [
 
 export default function HomePage({ recipes, loading }) {
   const navigate = useNavigate()
+  const { user, userProfile } = useAuth()
 
   const quote = useMemo(
     () => MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)],
     []
   )
+
+  const bannerImage = useMemo(
+    () => BANNER_IMAGES[Math.floor(Math.random() * BANNER_IMAGES.length)],
+    []
+  )
+
+  const welcomeName = user
+    ? (userProfile?.displayName || user.displayName || '').trim() || 'Değerli Üye'
+    : null
 
   const recentRecipes = useMemo(
     () => (recipes || []).slice(0, 6),
@@ -49,15 +68,19 @@ export default function HomePage({ recipes, loading }) {
           transition={{ duration: 0.5 }}
           className="relative h-48 rounded-3xl overflow-hidden shadow-xl"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary/40" />
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA4KSIvPjwvc3ZnPg==')] opacity-60" />
-          <div className="relative h-full flex flex-col items-center justify-center px-8 text-center">
+          <img
+            src={bannerImage}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent" />
+          <div className="relative h-full flex flex-col items-start justify-center px-8 text-left">
             <Icon name="format_quote" size="text-4xl" className="text-white/40 mb-2" />
             <p className="text-white text-lg font-semibold leading-relaxed max-w-md">
               {quote}
             </p>
-            <p className="text-white/60 text-sm mt-3 font-medium">
-              Hoş geldin, Büşra
+            <p className="text-white/90 text-sm mt-3 font-medium">
+              {welcomeName ? `Hoş geldin, ${welcomeName}` : 'Hoş geldin'}
             </p>
           </div>
         </motion.div>
