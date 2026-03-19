@@ -9,11 +9,14 @@ import { useAuth } from '../context/AuthContext'
 import { MOTIVATIONAL_QUOTES } from '../utils/constants'
 
 const BANNER_IMAGES = [
-  'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=1200',
-  'https://images.unsplash.com/photo-1576671081837-49000212a370?w=1200',
-  'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=1200',
-  'https://images.unsplash.com/photo-1604176354204-9268737828e4?w=1200',
-  'https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=1200',
+  'https://plus.unsplash.com/premium_photo-1675799887840-98178eff888d?q=80&w=930&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  'https://plus.unsplash.com/premium_photo-1675799784785-e2792bb1af69?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8a25pdHRpbmclMjB3b29sfGVufDB8fDB8fHww',
+  'https://images.unsplash.com/photo-1711097258176-c1a4bb511aa7?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8a25pdHRpbmclMjB3b29sfGVufDB8fDB8fHww',
+  'https://images.unsplash.com/photo-1641060889144-1cc91e6871ce?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8a25pdHRpbmclMjB3b29sfGVufDB8fDB8fHww',
+  'https://images.unsplash.com/photo-1632335023958-149d57da14fb?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8a25pdHRpbmclMjB3b29sfGVufDB8fDB8fHww',
+  'https://images.unsplash.com/photo-1612016520089-2a0258448153?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGtuaXR0aW5nJTIwd29vbHxlbnwwfHwwfHx8MA%3D%3D',
+  'https://images.unsplash.com/photo-1629579040510-fa7c6d3a08ce?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGtuaXR0aW5nJTIwd29vbHxlbnwwfHwwfHx8MA%3D%3D',
+  'https://plus.unsplash.com/premium_photo-1723759342094-55e004b1e2a8?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGtuaXR0aW5nJTIwd29vbHxlbnwwfHwwfHx8MA%3D%3D',
 ]
 
 const STAT_ITEMS = [
