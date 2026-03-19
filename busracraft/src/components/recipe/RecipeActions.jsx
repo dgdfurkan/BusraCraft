@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import Button from '../ui/Button'
 import ConfirmDialog from '../ui/ConfirmDialog'
+import RecipeShareCard from './RecipeShareCard'
 
 export default function RecipeActions({ recipe, onDelete, onAddToList }) {
   const navigate = useNavigate()
   const { user } = useAuth()
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+  const [showShareCard, setShowShareCard] = useState(false)
 
   const isOwner = user?.uid && recipe?.ownerUid === user.uid
 
@@ -35,6 +37,14 @@ export default function RecipeActions({ recipe, onDelete, onAddToList }) {
               Listeye Ekle
             </Button>
           )}
+          <Button
+            variant="secondary"
+            size="sm"
+            icon="share"
+            onClick={() => setShowShareCard(true)}
+          >
+            Paylaş
+          </Button>
           {isOwner && (
             <Button
               variant="danger"
@@ -59,6 +69,13 @@ export default function RecipeActions({ recipe, onDelete, onAddToList }) {
         title="Tarifi Sil"
         message={`"${recipe.title}" tarifini silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`}
       />
+      )}
+
+      {showShareCard && (
+        <RecipeShareCard
+          recipe={recipe}
+          onClose={() => setShowShareCard(false)}
+        />
       )}
     </>
   )

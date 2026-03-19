@@ -1,37 +1,54 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Icon from '../ui/Icon'
 
 export default function PhotoGallery({ photos = [], title, category, difficulty }) {
   const [current, setCurrent] = useState(0)
   const [fullscreen, setFullscreen] = useState(false)
+  const touchStart = useRef(0)
+  const touchEnd = useRef(0)
 
   if (photos.length === 0) return null
 
   const prev = (e) => {
-    e.stopPropagation()
+    e?.stopPropagation?.()
     setCurrent((c) => (c === 0 ? photos.length - 1 : c - 1))
   }
   const next = (e) => {
-    e.stopPropagation()
+    e?.stopPropagation?.()
     setCurrent((c) => (c === photos.length - 1 ? 0 : c + 1))
   }
 
   const difficultyLabels = { easy: 'Kolay', medium: 'Orta', hard: 'Zor' }
 
+  const handleTouchStart = (e) => {
+    touchStart.current = e.touches[0].clientX
+  }
+  const handleTouchEnd = (e) => {
+    touchEnd.current = e.changedTouches[0].clientX
+    const diff = touchStart.current - touchEnd.current
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) next()
+      else prev()
+    }
+  }
+
   return (
     <>
       <div className="relative group w-full aspect-[16/10] rounded-xl overflow-hidden bg-primary/5 shadow-sm border border-primary/10">
         <div
-          className="w-full h-full cursor-pointer"
+          className="w-full h-full cursor-pointer touch-pan-y"
           onClick={() => setFullscreen(true)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
           <AnimatePresence mode="wait">
             <motion.img
               key={current}
               src={photos[current]}
               alt={title || ''}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover select-none"
+              draggable={false}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -44,57 +61,58 @@ export default function PhotoGallery({ photos = [], title, category, difficulty 
           <>
             <button
               onClick={prev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm text-slate-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md cursor-pointer"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm text-slate-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md cursor-pointer"
             >
-              <Icon name="chevron_left" size="text-2xl" />
+              <Icon name="chevron_left" size="text-xl" />
             </button>
             <button
               onClick={next}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm text-slate-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md cursor-pointer"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm text-slate-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md cursor-pointer"
             >
-              <Icon name="chevron_right" size="text-2xl" />
+              <Icon name="chevron_right" size="text-xl" />
             </button>
           </>
         )}
 
-        {title && (
-          <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-lg border border-primary/10 shadow-lg">
-            <h2 className="text-lg font-bold text-slate-800 leading-tight">{title}</h2>
-            <div className="flex items-center gap-2 mt-1.5">
-              {category && (
-                <span className="flex items-center gap-1 text-xs text-primary font-semibold">
-                  <Icon name="category" size="text-sm" />
-                  {category}
-                </span>
-              )}
-              {difficulty && (
-                <span className="flex items-center gap-1 text-xs text-slate-500 font-medium">
-                  <Icon name="signal_cellular_alt" size="text-sm" />
-                  {difficultyLabels[difficulty] || difficulty}
-                </span>
-              )}
-            </div>
+        {(title || photos.length > 1) && (
+          <div className="absolute bottom-2 left-2 right-2 md:bottom-3 md:left-3 md:right-3 flex items-end justify-between gap-2 z-10">
+            {title && (
+              <div className="flex-1 min-w-0 bg-white/85 backdrop-blur-sm px-3 py-2 md:px-4 md:py-2.5 rounded-lg border border-primary/10 shadow-md">
+                <h2 className="text-sm md:text-base font-bold text-slate-800 leading-tight truncate">{title}</h2>
+                <div className="flex items-center gap-2 mt-1 flex-wrap">
+                  {category && (
+                    <span className="flex items-center gap-0.5 text-[10px] md:text-xs text-primary font-semibold">
+                      <Icon name="category" size="text-xs" />
+                      {category}
+                    </span>
+                  )}
+                  {difficulty && (
+                    <span className="flex items-center gap-0.5 text-[10px] md:text-xs text-slate-500 font-medium">
+                      <Icon name="signal_cellular_alt" size="text-xs" />
+                      {difficultyLabels[difficulty] || difficulty}
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
+            {photos.length > 1 && (
+              <div className="flex gap-1.5 shrink-0 pb-1">
+                {photos.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={(e) => { e.stopPropagation(); setCurrent(i) }}
+                    className={`rounded-full transition-all cursor-pointer ${
+                      i === current
+                        ? 'w-2.5 h-2.5 bg-white shadow-md'
+                        : 'w-2 h-2 bg-white/50 hover:bg-white/70'
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
-
-      {photos.length > 1 && (
-        <div className="flex gap-3 overflow-x-auto pb-2 mt-4 scrollbar-hide">
-          {photos.map((photo, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              className={`shrink-0 w-20 h-20 rounded-lg overflow-hidden transition-all cursor-pointer ${
-                i === current
-                  ? 'border-2 border-primary shadow-md'
-                  : 'border border-primary/10 opacity-70 hover:opacity-100'
-              }`}
-            >
-              <img src={photo} alt="" className="w-full h-full object-cover" />
-            </button>
-          ))}
-        </div>
-      )}
 
       <AnimatePresence>
         {fullscreen && (
